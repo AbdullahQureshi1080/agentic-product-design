@@ -1,0 +1,202 @@
+{
+  "_comment": "figma-map.example.json — Example Figma frame map for LLM + MCP targeting.",
+  "_usage": "Copy this file, rename to figma-map.json, and replace all placeholder values with your real Figma data. This file tells the LLM exactly which frames to read or write — preventing full-canvas scans.",
+
+  "product": "[PRODUCT_NAME]",
+  "figma_file_key": "[YOUR_FIGMA_FILE_KEY]",
+  "figma_file_url": "https://www.figma.com/design/[FILE_KEY]/[FILE_NAME]",
+  "last_updated": "[YYYY-MM-DD]",
+
+  "_naming_convention": "All frame names follow: [FLOW_ID] / [SCREEN_ID] — [Screen Label]. This convention is required for reliable MCP frame targeting.",
+
+  "flows": {
+
+    "AUTH-01": {
+      "name": "Sign Up",
+      "description": "New user registration flow",
+      "page": "Flows",
+      "frames": [
+        {
+          "id": "AUTH-01/01",
+          "label": "Splash Screen",
+          "frame_name": "AUTH-01 / 01-splash — Splash Screen",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": "Full-screen, no navigation bar"
+        },
+        {
+          "id": "AUTH-01/02",
+          "label": "Sign Up Entry",
+          "frame_name": "AUTH-01 / 02-signup — Sign Up Entry",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": "Email input + social login options"
+        },
+        {
+          "id": "AUTH-01/03",
+          "label": "Email Verification",
+          "frame_name": "AUTH-01 / 03-verify — Email Verification",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": "6-digit OTP input"
+        },
+        {
+          "id": "AUTH-01/04",
+          "label": "Profile Setup",
+          "frame_name": "AUTH-01 / 04-profile — Profile Setup",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": "Optional step — can be skipped"
+        },
+        {
+          "id": "AUTH-01/05",
+          "label": "Permissions",
+          "frame_name": "AUTH-01 / 05-permissions — Permissions",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": "Push notifications, location"
+        }
+      ]
+    },
+
+    "AUTH-02": {
+      "name": "Sign In",
+      "description": "Returning user sign-in flow",
+      "page": "Flows",
+      "frames": [
+        {
+          "id": "AUTH-02/01",
+          "label": "Sign In Entry",
+          "frame_name": "AUTH-02 / 01-signin — Sign In Entry",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": ""
+        },
+        {
+          "id": "AUTH-02/02",
+          "label": "Forgot Password",
+          "frame_name": "AUTH-02 / 02-forgot — Forgot Password",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": ""
+        }
+      ]
+    },
+
+    "CORE-01": {
+      "name": "[PRIMARY_FLOW_NAME]",
+      "description": "[Describe what this flow accomplishes]",
+      "page": "Flows",
+      "frames": [
+        {
+          "id": "CORE-01/01",
+          "label": "[SCREEN_LABEL]",
+          "frame_name": "CORE-01 / 01-[slug] — [Screen Label]",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": "[Any notes about this frame]"
+        },
+        {
+          "id": "CORE-01/02",
+          "label": "[SCREEN_LABEL]",
+          "frame_name": "CORE-01 / 02-[slug] — [Screen Label]",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": ""
+        },
+        {
+          "id": "CORE-01/03",
+          "label": "[SCREEN_LABEL]",
+          "frame_name": "CORE-01 / 03-[slug] — [Screen Label]",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": ""
+        }
+      ]
+    },
+
+    "CORE-02": {
+      "name": "[SECONDARY_FLOW_NAME]",
+      "description": "[Describe what this flow accomplishes]",
+      "page": "Flows",
+      "frames": [
+        {
+          "id": "CORE-02/01",
+          "label": "[SCREEN_LABEL]",
+          "frame_name": "CORE-02 / 01-[slug] — [Screen Label]",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": ""
+        }
+      ]
+    },
+
+    "SETTINGS-01": {
+      "name": "Account Management",
+      "description": "User account and settings flows",
+      "page": "Flows",
+      "frames": [
+        {
+          "id": "SETTINGS-01/01",
+          "label": "Settings Home",
+          "frame_name": "SETTINGS-01 / 01-home — Settings Home",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": ""
+        },
+        {
+          "id": "SETTINGS-01/05",
+          "label": "Delete Account",
+          "frame_name": "SETTINGS-01 / 05-delete — Delete Account",
+          "node_id": "[FIGMA_NODE_ID]",
+          "status": "todo",
+          "fidelity": "wireframe",
+          "notes": "Destructive flow — confirmation modal required (C-08)"
+        }
+      ]
+    }
+  },
+
+  "pages": {
+    "_comment": "Map of Figma pages in this file. Keep this updated as you add pages.",
+    "Flows": "All user flow screens — primary working page",
+    "Components": "Component library — do not scan in LLM sessions",
+    "Tokens": "Token definitions — do not scan in LLM sessions",
+    "Archive": "Deprecated designs — do not scan in LLM sessions"
+  },
+
+  "mcp_targeting_rules": {
+    "_comment": "Rules for how LLM sessions should reference this file when using Figma MCP.",
+    "always_target_by_node_id": true,
+    "never_scan_full_canvas": true,
+    "never_access_pages": ["Components", "Tokens", "Archive"],
+    "prefer_frame_name_over_search": true,
+    "max_frames_per_mcp_call": 3,
+    "update_node_id_after_creation": true
+  },
+
+  "status_definitions": {
+    "todo": "Not started — no Figma frame exists yet",
+    "wip": "Frame exists in Figma but design is in progress",
+    "review": "Design complete, awaiting review",
+    "done": "Reviewed and approved",
+    "blocked": "Cannot proceed — blocked on decision or dependency"
+  },
+
+  "fidelity_definitions": {
+    "wireframe": "Grayscale, structure only, no tokens applied",
+    "hi-fi": "Full token-compliant, production-ready design"
+  }
+}
