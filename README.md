@@ -29,8 +29,8 @@ figma-map.json     — auto-managed frame map (never edit this)
 ## How To Start
 
 ```bash
-git clone https://github.com/[YOUR_USERNAME]/agentic-design-system
-cd agentic-design-system
+git clone https://github.com/AbdullahQureshi1080/agentic-product-design
+cd agentic-product-design
 claude
 ```
 
