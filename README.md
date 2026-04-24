@@ -43,31 +43,26 @@ Claude will read `context.md`, tell you what's missing, and guide you through fi
 ## Prerequisites
 
 ### 1. Claude Code
-The CLI that runs this system. Install it, then authenticate with your Anthropic account.
+The CLI that runs this system. Install it and authenticate via Google or your Anthropic account.
+
+```bash
+npm install -g @anthropic-ai/claude-code
+claude login
+```
 
 - Download: [claude.ai/code](https://claude.ai/code)
 - Docs: [docs.anthropic.com/en/docs/claude-code/overview](https://docs.anthropic.com/en/docs/claude-code/overview)
 
-### 2. Figma MCP Server
-Connects Claude Code to your Figma file so Claude can read and write directly on canvas.
+### 2. Figma MCP Plugin
+The official Figma plugin for Claude. Connects Claude Code to your Figma file — no API key or JSON config required. Authenticates via your Figma account through the CLI.
 
-- Setup guide: [github.com/GLips/Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP)
-- Get your Figma API key: Figma → Account Settings → Security → Personal access tokens
-- Add to your MCP config (`~/.claude/mcp.json`):
-
-```json
-{
-  "mcpServers": {
-    "figma": {
-      "command": "npx",
-      "args": ["-y", "figma-developer-mcp", "--stdio"],
-      "env": {
-        "FIGMA_API_KEY": "your-api-key-here"
-      }
-    }
-  }
-}
+```bash
+claude mcp add figma@claude-plugins-official
 ```
+
+On first use, Claude will prompt you to authenticate with your Figma account (Google or email). That's it — no manual config files.
+
+- Figma MCP docs: [help.figma.com](https://help.figma.com)
 
 ### 3. Figma Account
 A Figma file with a dedicated **Flows** page. Variables set up for hi-fi (or Claude will help you build the token structure from your brand colors).
