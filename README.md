@@ -1,4 +1,4 @@
-# LLM Product Design System
+# Agentic Design System
 
 A Claude Code workflow for designing production-grade products in Figma at 10x speed.
 
@@ -29,8 +29,8 @@ figma-map.json     — auto-managed frame map (never edit this)
 ## How To Start
 
 ```bash
-git clone https://github.com/[YOUR_USERNAME]/llm-product-design-system
-cd llm-product-design-system
+git clone https://github.com/[YOUR_USERNAME]/agentic-design-system
+cd agentic-design-system
 claude
 ```
 
@@ -42,8 +42,35 @@ Claude will read `context.md`, tell you what's missing, and guide you through fi
 
 ## Prerequisites
 
-- Claude Code (CLI)
-- Figma account with MCP server configured
-- A Figma file (with Variables set up for hi-fi, or Claude will help you build the token structure)
+### 1. Claude Code
+The CLI that runs this system. Install it, then authenticate with your Anthropic account.
 
-Figma MCP setup: [github.com/GLips/Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP)
+- Download: [claude.ai/code](https://claude.ai/code)
+- Docs: [docs.anthropic.com/en/docs/claude-code/overview](https://docs.anthropic.com/en/docs/claude-code/overview)
+
+### 2. Figma MCP Server
+Connects Claude Code to your Figma file so Claude can read and write directly on canvas.
+
+- Setup guide: [github.com/GLips/Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP)
+- Get your Figma API key: Figma → Account Settings → Security → Personal access tokens
+- Add to your MCP config (`~/.claude/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "figma-developer-mcp", "--stdio"],
+      "env": {
+        "FIGMA_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+### 3. Figma Account
+A Figma file with a dedicated **Flows** page. Variables set up for hi-fi (or Claude will help you build the token structure from your brand colors).
+
+- Sign up: [figma.com](https://figma.com)
+- Figma Variables docs: [help.figma.com/hc/en-us/articles/15339657135383](https://help.figma.com/hc/en-us/articles/15339657135383)
