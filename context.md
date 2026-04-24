@@ -1,9 +1,16 @@
 # Product Context
 
 > Claude reads this file at the start of every session.
-> You fill in Section 1 and 2. Claude fills in Section 3 from your Figma file.
+> For new projects: fill in Section 1 and 2. Claude fills in Section 3.
+> For existing projects: Claude populates everything from your Figma file. You answer questions.
 > Do not edit Section 3 manually — Claude will overwrite it.
 > Section 4 is written by Claude as decisions are made.
+
+```
+project_type:          (new | existing)
+figma_file_key:        (paste if existing project — Claude reads this first)
+figma_working_page:    (Claude fills this after confirming with you)
+```
 
 ---
 
@@ -63,14 +70,34 @@ Figma frame names must match screen naming exactly.
 
 ---
 
-[Claude populates this from your description of the user journey.
+[New project: Claude populates this from your description of the user journey.
 Tell Claude: "Walk me through what the user does from open to core value."
 Claude will generate the flow map and write it here.]
+
+[Existing project: Claude populates this from Figma frame discovery.
+You confirm statuses — done / in progress / not started.]
 
 ---
 
 Flow relationships:
 [Claude generates the navigation tree here.]
+```
+
+---
+
+### Existing Project — Frame Inventory
+
+*(Claude populates this during import for existing projects. Leave blank for new projects.)*
+
+```
+Working Figma page: [Claude fills after page confirmation]
+
+| Frame name (as found in Figma) | Mapped flow ID | Status | Fidelity |
+|-------------------------------|---------------|--------|---------|
+| [Claude fills from MCP frame discovery + designer status confirmation] | | | |
+
+Frames not yet in Figma (designer-described, to be built):
+[Claude fills from guided questions during import]
 ```
 
 ---

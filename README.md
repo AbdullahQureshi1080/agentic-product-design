@@ -36,7 +36,39 @@ claude
 
 Claude will read `context.md`, tell you what's missing, and guide you through filling it in before any design work begins.
 
-**First session takes ~15 minutes to set up context. Every session after that starts designing immediately.**
+**First session takes ~10–15 minutes to set up context. Every session after that starts designing immediately.**
+
+---
+
+## Before Your First Session
+
+The more precise you are upfront, the faster Claude works and the fewer tokens you burn.
+
+### New project — have these ready
+
+- Product name and one sentence on what it does
+- Who the primary user is and what device they use
+- The main thing your user does in the product (Claude maps the screens from this)
+- Your brand primary color (Claude generates the full token system from this)
+- Your Figma file key if you have one (Claude extracts Variables automatically)
+
+### Existing project — have these ready
+
+- Your Figma file URL (Claude parses the file key)
+- Which Figma page has your main screens (any name — not required to be "Flows")
+- A rough sense of what's done vs. in progress (you don't need to be exact)
+
+Claude will then read your page list, inventory your frames, extract your Variables and text styles, check your component library, and ask you 4 short product questions. **You do not fill in `context.md` manually for existing projects — Claude populates it from your Figma file.**
+
+### How to describe existing work precisely
+
+Precision saves tokens and avoids back-and-forth. Use this pattern:
+
+| Instead of | Say |
+|------------|-----|
+| "I have some screens done" | "Frames 1–8 on the Screens page are approved. Frame 9 is in progress. Everything after that is not started." |
+| "The design system is set up" | "I have Figma Variables for colors and typography. No spacing tokens. Buttons and inputs are in the component library but navigation components are missing." |
+| "Continue from where we left off" | "We finished CORE-01 wireframes. They're approved. Start CORE-02 wireframes next." |
 
 ---
 
