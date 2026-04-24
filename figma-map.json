@@ -1,0 +1,50 @@
+{
+  "_note": "Auto-managed by Claude. Never edit manually. Claude populates this as flows are designed and frames are created via Figma MCP.",
+
+  "product": "",
+  "figma_file_key": "",
+  "figma_file_url": "",
+  "last_session": "",
+
+  "pages": {
+    "Flows": "All user flow screens — primary working page",
+    "Components": "Component library — read once per hi-fi session, never during design",
+    "Tokens": "Token definitions — never access via MCP",
+    "Archive": "Deprecated designs — never access via MCP"
+  },
+
+  "mcp_rules": {
+    "never_scan_full_canvas": true,
+    "never_access_pages": ["Components", "Tokens", "Archive"],
+    "max_frames_per_read_call": 3,
+    "read_before_write": true,
+    "screenshot_before_reporting": true,
+    "record_node_id_on_creation": true
+  },
+
+  "flows": {
+    "_note": "Claude adds flow entries here as they are designed. Format shown below.",
+    "_format": {
+      "flow_id": "e.g. CORE-01",
+      "name": "flow name",
+      "status": "todo | wip | review | done",
+      "frames": [
+        {
+          "id": "screen ID e.g. CORE-01/01",
+          "label": "screen label",
+          "frame_name": "exact Figma frame name",
+          "node_id": "Figma node ID — populated after frame creation",
+          "status": "todo | wip | done",
+          "fidelity": "wireframe | hi-fi"
+        }
+      ]
+    }
+  },
+
+  "status_key": {
+    "todo": "Not started — no Figma frame exists",
+    "wip": "Frame exists, design in progress",
+    "review": "Design complete, awaiting designer approval",
+    "done": "Approved — ready for dev"
+  }
+}

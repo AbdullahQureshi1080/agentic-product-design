@@ -1,116 +1,49 @@
 # LLM Product Design System
 
-A structured, reusable workflow for designing products with LLM assistance — from product definition through production-ready UI.
+A Claude Code workflow for designing production-grade products in Figma at 10x speed.
+
+Built for designers at AI-native companies who use Claude Code and Figma MCP.
 
 ---
 
-## What This Is
+## What It Does
 
-A local repository that acts as the **single source of truth** for LLM-assisted product design. It gives every AI session the context it needs to produce consistent, constraint-compliant, production-quality designs — across any product, any flow, any fidelity level.
+You define the product. Claude builds it in Figma.
 
-This system is not a UI kit. It is a **workflow operating system**: structured documents, scoped prompts, and explicit conventions that make LLM output reliable and repeatable.
-
----
-
-## Who It Is For
-
-- Product designers using Claude, GPT, or any LLM to accelerate UI work
-- Design engineers who generate or review Figma output programmatically
-- Teams that want consistent AI-assisted design without re-explaining context every session
+Claude reads your context, maps your flows, generates wireframes on canvas, applies your design system, audits every frame against 20 constraints, and iterates — all via Figma MCP. You review in Figma in real-time. Devs get token-annotated frames ready for Dev Mode.
 
 ---
 
-## Repository Structure
+## What's In The Repo
 
 ```
-llm-product-design-system/
-├── docs/
-│   ├── product.md          # Product overview, personas, features
-│   ├── flows.md            # User flow map and naming conventions
-│   ├── design-system.md    # Tokens, typography, spacing, components
-│   ├── patterns.md         # UX patterns and when to use them
-│   ├── constraints.md      # Non-negotiable design rules
-│   └── decisions.md        # Decision log
-├── prompts/
-│   ├── wireframe.prompt.md     # Wireframe generation prompt
-│   ├── hi-fi.prompt.md         # Hi-fi translation prompt
-│   ├── refinement.prompt.md    # Iterative refinement prompt
-│   └── audit.prompt.md         # Design audit prompt
-├── figma/
-│   └── figma-map.example.json  # Frame mapping for Figma MCP
-├── guides/
-│   ├── setup.md            # How to set up and connect this repo
-│   ├── workflow.md         # Step-by-step design workflow
-│   └── figma-mcp.md        # Figma + MCP connection guide
-└── README.md
+CLAUDE.md          — system brain (never edit this)
+context.md         — the only file you fill in
+constraints.md     — 20 design rules + UX patterns
+prompts.md         — wireframe, hi-fi, refinement, audit prompts
+figma-map.json     — auto-managed frame map (never edit this)
 ```
 
 ---
 
-## Quick Start
-
-**1. Clone or copy this repo locally.**
+## How To Start
 
 ```bash
 git clone https://github.com/[YOUR_USERNAME]/llm-product-design-system
 cd llm-product-design-system
+claude
 ```
 
-**2. Fill in your product context.**
+Claude will read `context.md`, tell you what's missing, and guide you through filling it in before any design work begins.
 
-Edit these files first — they are the foundation for every prompt session:
-
-- `docs/product.md` — your product, personas, features
-- `docs/flows.md` — your user flows
-- `docs/design-system.md` — your token system and component rules
-
-**3. Load context into your LLM session.**
-
-At the start of every design session, paste this into the chat:
-
-```
-Read the following files and hold them as context for this session:
-- docs/product.md
-- docs/flows.md
-- docs/design-system.md
-- docs/patterns.md
-- docs/constraints.md
-```
-
-**4. Run a prompt.**
-
-Copy a prompt from `/prompts`, fill in the bracketed placeholders, and send it.
+**First session takes ~15 minutes to set up context. Every session after that starts designing immediately.**
 
 ---
 
-## Example Workflow
+## Prerequisites
 
-```
-Define product (product.md)
-  → Map flows (flows.md)
-    → Generate wireframes (wireframe.prompt.md)
-      → Review against constraints (constraints.md)
-        → Convert to hi-fi (hi-fi.prompt.md)
-          → Refine (refinement.prompt.md)
-            → Audit (audit.prompt.md)
-```
+- Claude Code (CLI)
+- Figma account with MCP server configured
+- A Figma file (with Variables set up for hi-fi, or Claude will help you build the token structure)
 
-Full detail in `guides/workflow.md`.
-
----
-
-## Figma Integration
-
-If you use Figma via MCP, read `guides/figma-mcp.md` before your first session. It explains how to reference frames instead of scanning the full canvas, how to name frames for LLM targeting, and how to avoid token overuse.
-
----
-
-## Customization
-
-Every file in `/docs` is a template. Replace all `[PLACEHOLDER]` values with your product's real content. The more complete your `docs/` folder, the less you need to explain in each prompt session.
-
----
-
-## Contributing
-
-This is a living system. When you make a significant design decision, log it in `docs/decisions.md`. When you establish a new pattern, add it to `docs/patterns.md`. The repo grows with the product.
+Figma MCP setup: [github.com/GLips/Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP)
