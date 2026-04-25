@@ -17,7 +17,8 @@ Claude reads your context, maps your flows, generates wireframes on canvas, appl
 ## What's In The Repo
 
 ```
-CLAUDE.md          — system brain (never edit this)
+CLAUDE.md          — system brain for Claude Code (never edit this)
+AGENTS.md          — system brain for Codex CLI (never edit this)
 context.md         — the only file you fill in
 constraints.md     — 20 design rules + UX patterns
 prompts.md         — wireframe, hi-fi, refinement, audit prompts
@@ -74,30 +75,59 @@ Precision saves tokens and avoids back-and-forth. Use this pattern:
 
 ## Prerequisites
 
-### 1. Claude Code
-The CLI that runs this system. Install it and authenticate via Google or your Anthropic account.
+This system works with **Claude Code** (Anthropic) or **Codex CLI** (OpenAI). Pick one.
 
+---
+
+### Option A — Claude Code
+
+#### 1. Claude Code CLI
 ```bash
 npm install -g @anthropic-ai/claude-code
 claude login
 ```
-
 - Download: [claude.ai/code](https://claude.ai/code)
 - Docs: [docs.anthropic.com/en/docs/claude-code/overview](https://docs.anthropic.com/en/docs/claude-code/overview)
 
-### 2. Figma MCP Plugin
-The official Figma plugin for Claude. Connects Claude Code to your Figma file — no API key or JSON config required. Authenticates via your Figma account through the CLI.
+#### 2. Figma MCP (Claude plugin)
+The official Figma plugin for Claude. No API key or JSON config required — authenticates via Figma through the CLI.
 
 ```bash
 claude mcp add figma@claude-plugins-official
 ```
 
-On first use, Claude will prompt you to authenticate with your Figma account (Google or email). That's it — no manual config files.
+On first use, Claude will prompt you to authenticate with your Figma account. That's it.
 
 - Figma MCP docs: [help.figma.com](https://help.figma.com)
 
-### 3. Figma Account
-A Figma file with a dedicated **Flows** page. Variables set up for hi-fi (or Claude will help you build the token structure from your brand colors).
+**How it loads:** Claude Code auto-reads `CLAUDE.md` from the project root on every session start.
+
+---
+
+### Option B — Codex CLI
+
+#### 1. Codex CLI
+```bash
+npm install -g @openai/codex
+codex login
+```
+- Docs: [developers.openai.com/codex/cli](https://developers.openai.com/codex/cli)
+
+#### 2. Figma MCP (remote server)
+Figma's remote MCP server — no desktop app required. Authenticates via Figma OAuth on first use.
+
+```bash
+codex mcp add figma --url https://mcp.figma.com/mcp
+```
+
+- Remote server docs: [developers.figma.com/docs/figma-mcp-server/remote-server-installation](https://developers.figma.com/docs/figma-mcp-server/remote-server-installation)
+
+**How it loads:** Codex auto-reads `AGENTS.md` from the project root on every session start — same behavior as Claude Code with `CLAUDE.md`.
+
+---
+
+### 3. Figma Account (both options)
+A Figma file with Variables set up for hi-fi (or the agent will help you build the token structure from your brand colors).
 
 - Sign up: [figma.com](https://figma.com)
 - Figma Variables docs: [help.figma.com/hc/en-us/articles/15339657135383](https://help.figma.com/hc/en-us/articles/15339657135383)
