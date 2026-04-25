@@ -1,41 +1,53 @@
 # Agentic Design System
 
-A Claude Code workflow for designing production-grade products in Figma at 10x speed.
+An agentic workflow for designing production-grade products in Figma at 10x speed.
 
-Built for designers at AI-native companies who use Claude Code and Figma MCP.
+Built for designers at AI-native companies who use an AI coding agent and Figma MCP.
 
 ---
 
 ## What It Does
 
-You define the product. Claude builds it in Figma.
+You define the product. Your agent builds it in Figma.
 
-Claude reads your context, maps your flows, generates wireframes on canvas, applies your design system, audits every frame against 20 constraints, and iterates — all via Figma MCP. You review in Figma in real-time. Devs get token-annotated frames ready for Dev Mode.
+The agent reads your context, maps your flows, generates wireframes on canvas, applies your design system, audits every frame against 20 constraints, and iterates — all via Figma MCP. You review in Figma in real-time. Devs get token-annotated frames ready for Dev Mode.
+
+Works with **Claude Code**, **Codex CLI**, and any agent that supports MCP servers and reads a project-root instruction file.
 
 ---
 
 ## What's In The Repo
 
 ```
-CLAUDE.md          — system brain for Claude Code (never edit this)
-AGENTS.md          — system brain for Codex CLI (never edit this)
+CLAUDE.md          — instructions for Claude Code (auto-loaded, never edit)
+AGENTS.md          — instructions for Codex CLI (auto-loaded, never edit)
 context.md         — the only file you fill in
 constraints.md     — 20 design rules + UX patterns
 prompts.md         — wireframe, hi-fi, refinement, audit prompts
-figma-map.json     — auto-managed frame map (never edit this)
+figma-map.json     — auto-managed frame map (never edit)
 ```
 
 ---
 
 ## How To Start
 
+Pick your agent and run it from the repo root:
+
+**Claude Code**
 ```bash
 git clone https://github.com/AbdullahQureshi1080/agentic-product-design
 cd agentic-product-design
 claude
 ```
 
-Claude will read `context.md`, tell you what's missing, and guide you through filling it in before any design work begins.
+**Codex CLI**
+```bash
+git clone https://github.com/AbdullahQureshi1080/agentic-product-design
+cd agentic-product-design
+codex
+```
+
+The agent reads `context.md`, tells you what's missing, and guides you through filling it in before any design work begins.
 
 **First session takes ~10–15 minutes to set up context. Every session after that starts designing immediately.**
 
@@ -43,23 +55,23 @@ Claude will read `context.md`, tell you what's missing, and guide you through fi
 
 ## Before Your First Session
 
-The more precise you are upfront, the faster Claude works and the fewer tokens you burn.
+The more precise you are upfront, the faster the agent works and the fewer tokens you burn.
 
 ### New project — have these ready
 
 - Product name and one sentence on what it does
 - Who the primary user is and what device they use
-- The main thing your user does in the product (Claude maps the screens from this)
-- Your brand primary color (Claude generates the full token system from this)
-- Your Figma file key if you have one (Claude extracts Variables automatically)
+- The main thing your user does in the product (the agent maps the screens from this)
+- Your brand primary color (the agent generates the full token system from this)
+- Your Figma file key if you have one (Variables are extracted automatically)
 
 ### Existing project — have these ready
 
-- Your Figma file URL (Claude parses the file key)
+- Your Figma file URL (the agent parses the file key)
 - Which Figma page has your main screens (any name — not required to be "Flows")
 - A rough sense of what's done vs. in progress (you don't need to be exact)
 
-Claude will then read your page list, inventory your frames, extract your Variables and text styles, check your component library, and ask you 4 short product questions. **You do not fill in `context.md` manually for existing projects — Claude populates it from your Figma file.**
+The agent will read your page list, inventory your frames, extract your Variables and text styles, check your component library, and ask you 4 short product questions. **You do not fill in `context.md` manually for existing projects — it is populated from your Figma file.**
 
 ### How to describe existing work precisely
 
@@ -75,58 +87,49 @@ Precision saves tokens and avoids back-and-forth. Use this pattern:
 
 ## Prerequisites
 
-This system works with **Claude Code** (Anthropic) or **Codex CLI** (OpenAI). Pick one.
+### 1. An AI coding agent with MCP support
 
----
-
-### Option A — Claude Code
-
-#### 1. Claude Code CLI
+**Claude Code** (Anthropic)
 ```bash
 npm install -g @anthropic-ai/claude-code
 claude login
 ```
 - Download: [claude.ai/code](https://claude.ai/code)
 - Docs: [docs.anthropic.com/en/docs/claude-code/overview](https://docs.anthropic.com/en/docs/claude-code/overview)
+- Instruction file: auto-loads `CLAUDE.md` from project root
 
-#### 2. Figma MCP (Claude plugin)
-The official Figma plugin for Claude. No API key or JSON config required — authenticates via Figma through the CLI.
-
-```bash
-claude mcp add figma@claude-plugins-official
-```
-
-On first use, Claude will prompt you to authenticate with your Figma account. That's it.
-
-- Figma MCP docs: [help.figma.com](https://help.figma.com)
-
-**How it loads:** Claude Code auto-reads `CLAUDE.md` from the project root on every session start.
-
----
-
-### Option B — Codex CLI
-
-#### 1. Codex CLI
+**Codex CLI** (OpenAI)
 ```bash
 npm install -g @openai/codex
 codex login
 ```
 - Docs: [developers.openai.com/codex/cli](https://developers.openai.com/codex/cli)
+- Instruction file: auto-loads `AGENTS.md` from project root
 
-#### 2. Figma MCP (remote server)
-Figma's remote MCP server — no desktop app required. Authenticates via Figma OAuth on first use.
-
-```bash
-codex mcp add figma --url https://mcp.figma.com/mcp
-```
-
-- Remote server docs: [developers.figma.com/docs/figma-mcp-server/remote-server-installation](https://developers.figma.com/docs/figma-mcp-server/remote-server-installation)
-
-**How it loads:** Codex auto-reads `AGENTS.md` from the project root on every session start — same behavior as Claude Code with `CLAUDE.md`.
+Other agents (Cursor, Windsurf, etc.) that support MCP servers and a project-level instruction file will also work — point them at the relevant instruction file and the Figma remote MCP server.
 
 ---
 
-### 3. Figma Account (both options)
+### 2. Figma MCP
+
+**Claude Code** — uses the official Figma desktop plugin. No JSON config required.
+```bash
+claude mcp add figma@claude-plugins-official
+```
+Authenticate with your Figma account on first use.
+- Docs: [help.figma.com](https://help.figma.com)
+
+**Codex CLI and all other agents** — uses the Figma remote MCP server. No desktop app required.
+```bash
+codex mcp add figma --url https://mcp.figma.com/mcp
+```
+Authenticate via Figma OAuth on first use.
+- Docs: [developers.figma.com/docs/figma-mcp-server/remote-server-installation](https://developers.figma.com/docs/figma-mcp-server/remote-server-installation)
+
+---
+
+### 3. Figma Account
+
 A Figma file with Variables set up for hi-fi (or the agent will help you build the token structure from your brand colors).
 
 - Sign up: [figma.com](https://figma.com)
