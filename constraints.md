@@ -52,6 +52,7 @@ Use independently to audit any Figma file without the full system:
 | C-18 | Error states alongside happy path | MEDIUM | Error state designed for every form and data fetch | Error state noted as "to do later" |
 | C-19 | No lorem ipsum | MEDIUM | "Olivia Chen", "Due tomorrow", "3 tasks" | "Lorem ipsum dolor sit amet" |
 | C-20 | System iconography only | MEDIUM | Phosphor icon `check-circle` at 24px | Custom SVG not in icon library |
+| C-21 | Correct component for semantic role | HIGH | Status Badge for read-only state labels. Chip for selectable options within a group. Button for standalone action triggers. | Using a Chip as a status label because it looks like a pill. Using a Button inside a filter group. Swapping Badge for Chip based on visual similarity. |
 
 ---
 
