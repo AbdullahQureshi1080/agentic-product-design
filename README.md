@@ -19,12 +19,20 @@ Works with **Claude Code**, **Codex CLI**, and any agent that supports MCP serve
 ## What's In The Repo
 
 ```
-CLAUDE.md          — instructions for Claude Code (auto-loaded, never edit)
-AGENTS.md          — instructions for Codex CLI (auto-loaded, never edit)
-context.md         — the only file you fill in
-constraints.md     — 20 design rules + UX patterns
-prompts.md         — wireframe, hi-fi, refinement, audit prompts
-figma-map.json     — auto-managed frame map (never edit)
+CLAUDE.md              — router for Claude Code (auto-loaded, never edit)
+AGENTS.md              — router for Codex CLI (auto-loaded, never edit)
+context.md             — the only file you fill in
+constraints.md         — 20 design rules + UX patterns (works standalone too)
+prompts.md             — wireframe, hi-fi, refinement, audit prompts
+figma-map.json         — auto-managed frame map (never edit)
+
+workflows/
+  new-project-setup.md       — guided context fill-in for new projects
+  existing-project-import.md — 7-step import from an existing Figma file
+  wireframe.md               — wireframe build + dependency model
+  hifi.md                    — hi-fi apply + mandatory wireframe snapshot
+  component-extraction.md    — measure → build → validate component workflow
+  conventions.md             — naming conventions + speed principles
 ```
 
 ---

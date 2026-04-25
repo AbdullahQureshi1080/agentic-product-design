@@ -1,5 +1,13 @@
 {
-  "_note": "Auto-managed by Claude. Never edit manually. Claude populates this as flows are designed and frames are created via Figma MCP.",
+  "_note": "Auto-managed by the agent. Never edit manually.",
+
+  "_schema": {
+    "frame_fields_required": ["node_id", "status", "fidelity"],
+    "status_values": ["todo", "wip", "review", "done"],
+    "fidelity_values": ["wireframe", "hi-fi"],
+    "backup_file": "figma-map.backup.json",
+    "validation": "On session start: confirm JSON is valid and all frame entries match this schema. Before any write: copy current file to figma-map.backup.json."
+  },
 
   "product": "",
   "figma_file_key": "",
@@ -7,15 +15,11 @@
   "last_session": "",
 
   "pages": {
-    "Flows": "All user flow screens — primary working page",
-    "Components": "Component library — read once per hi-fi session, never during design",
-    "Tokens": "Token definitions — never access via MCP",
-    "Archive": "Deprecated designs — never access via MCP"
+    "_note": "Agent populates after page discovery. Designer confirms working page."
   },
 
   "mcp_rules": {
     "never_scan_full_canvas": true,
-    "never_access_pages": ["Components", "Tokens", "Archive"],
     "max_frames_per_read_call": 3,
     "read_before_write": true,
     "screenshot_before_reporting": true,
@@ -23,7 +27,7 @@
   },
 
   "flows": {
-    "_note": "Claude adds flow entries here as they are designed. Format shown below.",
+    "_note": "Agent adds flow entries here as they are designed.",
     "_format": {
       "flow_id": "e.g. CORE-01",
       "name": "flow name",
@@ -34,10 +38,19 @@
           "label": "screen label",
           "frame_name": "exact Figma frame name",
           "node_id": "Figma node ID — populated after frame creation",
-          "status": "todo | wip | done",
+          "status": "todo | wip | review | done",
           "fidelity": "wireframe | hi-fi"
         }
       ]
+    }
+  },
+
+  "snapshots": {
+    "_note": "Populated by agent before hi-fi starts. One entry per flow.",
+    "_format": {
+      "flow_id": "e.g. CORE-01",
+      "archived_page_name": "e.g. 'Flows — Wireframes (Archived)'",
+      "archived_at": "ISO date"
     }
   },
 

@@ -1,7 +1,23 @@
 # Constraints + Patterns
 
-> Single source of truth. Referenced by CLAUDE.md and prompts.md.
-> Never duplicated elsewhere. Claude checks this file during every audit pass.
+> Single source of truth for design rules and UX patterns. Referenced by the agent during every audit pass.
+> Never duplicated elsewhere.
+
+---
+
+## How to Use This File
+
+This file works in two modes:
+
+**Mode A — Integrated (default)**
+Part of the Agentic Design System. The agent checks all constraints automatically during every audit pass. No manual action needed.
+
+**Mode B — Standalone Figma Audit**
+Use independently to audit any Figma file without the full system:
+1. Read this file in full
+2. Screenshot the frame to audit
+3. Check each constraint C-01 through C-20
+4. Report using the Audit Output Format at the bottom of this file
 
 ---
 
@@ -18,21 +34,21 @@
 |----|------|----------|---------|-----------|
 | C-01 | No hardcoded values | CRITICAL | `color/brand/primary` | `#4A90E2` |
 | C-02 | Autolayout on all frames | CRITICAL | Vertical autolayout, gap `spacing/sm` | Elements manually positioned by X/Y |
-| C-03 | Mobile-first | CRITICAL | Design 390px frame first | Design desktop, shrink down |
+| C-03 | Platform-appropriate frame size | CRITICAL | Mobile: 390px. Web desktop: 1440px. Tablet: 768px. Defined in `context.md`. | Designing at wrong platform size, or skipping platform definition entirely |
 | C-04 | One primary button per screen | CRITICAL | Single `Primary` button per screen section | Two `Primary` buttons side by side |
 | C-05 | Contrast ≥4.5:1 (text), ≥3:1 (UI) | CRITICAL | `color/neutral/900` on white = 16:1 | `color/neutral/500` on white = 3.2:1 for body text |
-| C-06 | Touch targets ≥44×44px | CRITICAL | Icon 24px with 10px padding frame = 44×44px | Icon 24px, no padding, directly tappable |
+| C-06 | Interaction targets meet platform minimum | CRITICAL | Mobile: touch target ≥44×44px. Web: click target ≥24×24px; primary actions ≥44px | Icon-only button with no padding on web; touch target <44px on mobile |
 | C-07 | Visible input labels | CRITICAL | Label above field + placeholder inside | Placeholder only, no label |
-| C-08 | Destructive actions need confirmation | CRITICAL | Delete → confirmation modal with "Delete" + "Cancel" | Delete executes immediately on tap |
+| C-08 | Destructive actions need confirmation | CRITICAL | Delete → confirmation modal with "Delete" + "Cancel" | Delete executes immediately on tap or click |
 | C-09 | System components only | HIGH | `Button/Primary` from library | Custom button built from scratch |
 | C-10 | No inline style overrides | HIGH | Use component properties and tokens | Detach + manually change fill color |
 | C-11 | Spacing tokens only | HIGH | Gap: `spacing/md` | Gap: `16` (raw value) |
 | C-12 | Radius tokens only | HIGH | Corner radius: `radius/md` | Corner radius: `12` (raw value) |
 | C-13 | Verb-led button labels | HIGH | "Save", "Delete account", "Try again" | "OK", "Yes", "Submit" |
 | C-14 | Empty states for all lists | HIGH | Every list has a designed empty state | List with zero items shows blank white screen |
-| C-15 | Every screen has back or exit | HIGH | Push screens: back button top-left. Sheets: X top-right or swipe-down | Screen with no way out |
+| C-15 | Every screen has a back or exit path | HIGH | Mobile: back button top-left (push), X top-right or swipe-down (sheets/modals). Web: breadcrumb or back link for deep nav, X for modals. Browser back is supplemental, never primary. | Screen with no way out on any platform |
 | C-16 | Progress indicator on multi-step flows | HIGH | Step dots or "Step 2 of 4" | Multi-step form with no progress shown |
-| C-17 | Bottom safe area on mobile | HIGH | Bottom CTA has `spacing/xl` + safe area inset | CTA sits flush against screen bottom |
+| C-17 | Platform navigation zones respected | HIGH | Mobile: bottom CTA has `spacing/xl` + safe area inset. Web: content not obscured by sticky header or browser chrome. | CTA flush against screen bottom on mobile; content hidden under fixed nav on web |
 | C-18 | Error states alongside happy path | MEDIUM | Error state designed for every form and data fetch | Error state noted as "to do later" |
 | C-19 | No lorem ipsum | MEDIUM | "Olivia Chen", "Due tomorrow", "3 tasks" | "Lorem ipsum dolor sit amet" |
 | C-20 | System iconography only | MEDIUM | Phosphor icon `check-circle` at 24px | Custom SVG not in icon library |
@@ -41,17 +57,19 @@
 
 ## Patterns
 
-Each pattern entry: what it is, when to use, when NOT to use, key rules, anti-patterns.
+Each pattern: what it is, when to use, when NOT to use, key rules, anti-patterns.
 
 ---
 
 ### Bottom Sheet
 
+> **Mobile only.** Web equivalent: Dropdown Menu or Side Panel — see below.
+
 A panel that slides up from the bottom, partially covering content behind it.
 
 **Use when:** Contextual actions from a list item, pickers (date, category), filter/sort, short secondary tasks that don't require navigation away.
 
-**Don't use when:** Full forms with many fields (use push screen), confirmation dialogs (use Modal), on desktop (use Dropdown or Modal).
+**Don't use when:** Full forms with many fields (use push screen), confirmation dialogs (use Modal), on desktop (use Dropdown Menu or Modal).
 
 **Rules:**
 - Drag handle required at top
@@ -66,7 +84,7 @@ A panel that slides up from the bottom, partially covering content behind it.
 
 ### Modal Dialog
 
-A centered dialog that blocks interaction with everything behind it.
+A centered dialog that blocks interaction with everything behind it. Works on mobile and web.
 
 **Use when:** Confirmation of destructive or irreversible actions. Critical decisions requiring explicit acknowledgment.
 
@@ -85,7 +103,7 @@ A centered dialog that blocks interaction with everything behind it.
 
 ### Toast
 
-A brief, auto-dismissing non-blocking notification.
+A brief, auto-dismissing non-blocking notification. Works on mobile and web.
 
 **Use when:** Confirming completed actions ("Saved", "Copied"). Low-priority errors. Undo offers.
 
@@ -93,7 +111,7 @@ A brief, auto-dismissing non-blocking notification.
 
 **Rules:**
 - Auto-dismiss: 3–5 seconds
-- Position: above bottom tab bar
+- Mobile: position above bottom tab bar. Web: bottom-left or top-right corner.
 - Max 1 toast visible at a time
 - Max 60 characters of text
 - Optional single Undo action
@@ -104,7 +122,7 @@ A brief, auto-dismissing non-blocking notification.
 
 ### Empty State
 
-The state shown when a list or section has no content.
+The state shown when a list or section has no content. Works on mobile and web.
 
 **Use when:** First-time user with no data, user has deleted all items, search or filter returns zero results.
 
@@ -120,7 +138,7 @@ The state shown when a list or section has no content.
 
 ### Confirmation Dialog (Destructive)
 
-A modal that confirms an action that cannot be undone.
+A modal that confirms an action that cannot be undone. Works on mobile and web.
 
 **Triggers:** Delete any user content, delete account, cancel paid plan, remove a team member, clear all data.
 
@@ -136,13 +154,13 @@ A modal that confirms an action that cannot be undone.
 
 ### Selection — Single (Radio / Row Tap)
 
-Selecting exactly one option from a list.
+Selecting exactly one option from a list. Works on mobile and web.
 
 **Use when:** Mutually exclusive choices — priority, category, plan type.
 
 **Rules:**
 - Mobile: tap-to-select rows with trailing checkmark, or native radio
-- Desktop: radio buttons, or dropdown if >5 options
+- Web: radio buttons, or dropdown if >5 options
 - Pre-select a logical default when one exists
 - Selection reflects immediately (no confirm button for simple selections)
 
@@ -152,13 +170,13 @@ Selecting exactly one option from a list.
 
 ### Selection — Multi (Checkbox)
 
-Selecting one or more items from a list.
+Selecting one or more items from a list. Works on mobile and web.
 
 **Use when:** Filtering by multiple categories, bulk actions, settings where multiple can be active.
 
 **Rules:**
 - Show selection count in header or action bar when ≥1 selected
-- Bulk action bar appears at bottom when ≥1 selected
+- Bulk action bar appears at bottom (mobile) or top (web) when ≥1 selected
 - "Select all" if list can be long
 
 **Anti-patterns:** Checkbox for mutually exclusive choices. Multi-select with no count shown.
@@ -167,7 +185,7 @@ Selecting one or more items from a list.
 
 ### Form — Multi-step
 
-A form split across multiple screens or steps.
+A form split across multiple screens or steps. Works on mobile and web.
 
 **Use when:** Onboarding flows (≥4 distinct input groups), complex creation flows, any form where all fields at once would overwhelm.
 
@@ -185,7 +203,7 @@ A form split across multiple screens or steps.
 
 ### Skeleton Loader
 
-A placeholder that mimics content layout while data loads.
+A placeholder that mimics content layout while data loads. Works on mobile and web.
 
 **Use when:** Loading lists, cards, detail screens — any content-heavy view.
 
@@ -199,11 +217,13 @@ A placeholder that mimics content layout while data loads.
 
 ---
 
-### Swipe Actions (Mobile Lists)
+### Swipe Actions
+
+> **Mobile only.** Web equivalent: Hover Actions / Context Menu — see below.
 
 Swipe gesture on a list row revealing contextual actions.
 
-**Use when:** Primary list actions the user takes frequently (delete, archive, complete).
+**Use when:** Primary list actions the user takes frequently (delete, archive, complete) on mobile.
 
 **Rules:**
 - Max 2 actions per row
@@ -212,3 +232,62 @@ Swipe gesture on a list row revealing contextual actions.
 - Swipe action icon + label, not icon only
 
 **Anti-patterns:** 3+ swipe actions. Destructive action on leading side. Swipe action for navigation (use tap instead).
+
+---
+
+### Dropdown Menu
+
+> **Web.** Web equivalent of Bottom Sheet for quick contextual actions.
+
+A positioned menu that appears from a trigger element, listing available actions.
+
+**Use when:** Contextual actions triggered from a button, row, or overflow icon on desktop. Filter/sort on web. Quick selections with ≤8 options.
+
+**Don't use when:** Full forms or multi-step tasks (use modal or dedicated page). More than 12 items without grouping (add search). On mobile (use Bottom Sheet).
+
+**Rules:**
+- Keyboard navigable (arrow keys, Enter, Escape to close)
+- Dismiss on outside click or Escape
+- Destructive items appear last, visually distinct (red text or icon)
+- Max 8 items before needing dividers or grouping
+
+**Anti-patterns:** Dropdown that opens another dropdown. Dropdown with >12 ungrouped items. Using dropdown for navigation.
+
+---
+
+### Hover Actions / Context Menu
+
+> **Web.** Web equivalent of Swipe Actions for row-level operations.
+
+Icon buttons or a context menu that appears on row hover, surfacing frequent actions without requiring a separate page.
+
+**Use when:** Row-level actions the user takes frequently on desktop (edit, delete, duplicate, archive). Tables, lists, file browsers.
+
+**Rules:**
+- Show on row hover only — hidden at rest
+- Max 3 icon buttons visible; overflow goes into a `…` menu
+- Destructive action always rightmost (icon buttons) or last (context menu)
+- Always pair icon with a tooltip label
+
+**Anti-patterns:** Actions visible at all times on every row (creates visual noise). More than 3 hover actions without an overflow menu. Using hover actions on mobile (no hover state on touch).
+
+---
+
+## Audit Output Format
+
+Use this format when running a standalone audit (Mode B) or reporting results during a workflow session.
+
+```
+FRAME: [frame name]
+
+CRITICAL: [N] passed, [N] failed
+  [C-XX] FAIL: [specific issue + layer name]
+
+HIGH: [N] passed, [N] failed
+  [C-XX] FAIL: [specific issue + layer name]
+
+MEDIUM: [N] passed, [N] failed
+  [C-XX] FAIL: [specific issue + layer name]
+
+VERDICT: APPROVE | APPROVE WITH MINOR FIXES | REVISE AND REAUDIT
+```
