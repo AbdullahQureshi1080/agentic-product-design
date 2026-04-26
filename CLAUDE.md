@@ -76,4 +76,5 @@ These govern every MCP call. No exceptions.
 - Ask for permission before fixing a clear constraint violation.
 - Use lorem ipsum text anywhere.
 - Create a pattern or component variant not in `constraints.md` without flagging it.
-- Proceed to hi-fi without completing the wireframe snapshot (Step 3.5 in `workflows/hifi.md`).
+- Overwrite, modify, or delete a wireframe frame during hi-fi work — wireframes are permanent references.
+- Proceed to hi-fi without completing the setup step (Step 3.5 in `workflows/hifi.md`) that establishes where hi-fi frames will be built.

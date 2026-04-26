@@ -1,23 +1,36 @@
 # Hi-Fi Phase
 
 > Loaded by the router after wireframes are approved. Load alongside `conventions.md`.
+> Wireframes are never modified during hi-fi — they remain the reference throughout.
 > When all frames are approved, update `figma-map.json` and report done.
 
 Only starts after the designer explicitly approves wireframes.
 
 ---
 
-## Step 3.5 — Wireframe Snapshot (mandatory)
+## Step 3.5 — Hi-Fi Setup (mandatory)
 
-Before touching any frame for hi-fi:
+Before building any hi-fi frames, establish where they will live. Ask the designer:
 
-1. Duplicate the current working page in Figma via MCP.
-2. Name the duplicate: `[PAGE_NAME] — Wireframes (Archived)`.
-3. Record in `figma-map.json → snapshots`: flow ID, archived page name, current date.
-4. Confirm to designer: "Wireframes archived to [page name]. Starting hi-fi on [main page]."
+```
+Where should I build the hi-fi designs?
 
-**This step is mandatory. Never proceed to hi-fi without it.**
-The archived page is read-only — never modify it after creation.
+A) Same page, separate sections — wireframes stay in a "Wireframes" section,
+   hi-fi builds in a "Hi-Fi" section on the same page.
+
+B) Separate page per flow — e.g., "AUTH-01 — Wireframes" and "AUTH-01 — Hi-Fi"
+   as distinct Figma pages.
+
+C) Same page, hi-fi adjacent — hi-fi frames placed directly to the right of
+   each wireframe frame on the same page, no formal sections.
+```
+
+Record the choice in `context.md` as `hifi_organization` and in `figma-map.json`.
+
+Create the hi-fi destination (section or page) via MCP before building any frames.
+Confirm to designer: "Hi-fi will be built in [location]. Wireframes stay untouched as reference."
+
+**Wireframes are never modified, overwritten, or deleted. They serve as the reference for the entire hi-fi phase.**
 
 ---
 
@@ -27,21 +40,25 @@ Say: "Moving to hi-fi. Applying your design system now."
 
 1. Read `context.md Section 3` for token values.
 2. Confirm Variables are live in the Figma file via MCP.
-3. Overwrite each wireframe frame — same frame names, same node IDs.
+3. For each screen, **create a new hi-fi frame** in the designated hi-fi location. Do not touch the wireframe frame.
+   - Reference the wireframe frame visually — read its structure, layout, and layer hierarchy via MCP.
+   - Build the hi-fi frame from that reference: same layout, same content, same hierarchy — with the design system applied.
+   - Name hi-fi frames with the same convention: `[FLOW_ID] / [SCREEN_ID] — [Label]`
 4. Apply per layer:
    - Color Variable bindings
    - Text style bindings
    - Spacing tokens
    - Component library instances (never detach)
 5. After each frame: screenshot, verify zero raw values anywhere.
-6. When all frames updated: run full 5-pass audit from `prompts.md → Section 4`.
-7. Report: `APPROVE` / `APPROVE WITH MINOR FIXES` / `REVISE AND REAUDIT`.
+6. Record the hi-fi frame's node ID in `figma-map.json → flows → frames → hifi_node_id`.
+7. When all frames built: run full 5-pass audit from `prompts.md → Section 4`.
+8. Report: `APPROVE` / `APPROVE WITH MINOR FIXES` / `REVISE AND REAUDIT`.
 
 ---
 
 ## Step 5 — Completion
 
 On `APPROVE`:
-- Update `figma-map.json` with node IDs and status `done`.
+- Update `figma-map.json` — set flow status `done`, confirm all `hifi_node_id` fields are populated.
 - Write one-line decision log entry to `context.md Section 4` for any significant choice.
-- Tell designer: "Done. [N] frames live in Figma Dev Mode — all layers use token names. Ready for dev."
+- Tell designer: "Done. [N] hi-fi frames live in [location] — all layers use token names. Wireframes preserved in [wireframe location]. Ready for dev."

@@ -10,6 +10,7 @@
 project_type:          (new | existing)
 figma_file_key:        (paste if existing project — Claude reads this first)
 figma_working_page:    (Claude fills this after confirming with you)
+hifi_organization:     (same-page-sections | page-per-flow | same-page-adjacent — Claude fills after asking)
 ```
 
 ---

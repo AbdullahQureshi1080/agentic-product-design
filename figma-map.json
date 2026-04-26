@@ -2,9 +2,9 @@
   "_note": "Auto-managed by the agent. Never edit manually.",
 
   "_schema": {
-    "frame_fields_required": ["node_id", "status", "fidelity"],
+    "frame_fields_required": ["wireframe_node_id", "hifi_node_id", "status"],
     "status_values": ["todo", "wip", "review", "done"],
-    "fidelity_values": ["wireframe", "hi-fi"],
+    "hifi_organization_values": ["same-page-sections", "page-per-flow", "same-page-adjacent"],
     "backup_file": "figma-map.backup.json",
     "validation": "On session start: confirm JSON is valid and all frame entries match this schema. Before any write: copy current file to figma-map.backup.json."
   },
@@ -13,6 +13,7 @@
   "figma_file_key": "",
   "figma_file_url": "",
   "last_session": "",
+  "hifi_organization": "",
 
   "pages": {
     "_note": "Agent populates after page discovery. Designer confirms working page."
@@ -32,25 +33,18 @@
       "flow_id": "e.g. CORE-01",
       "name": "flow name",
       "status": "todo | wip | review | done",
+      "wireframe_location": "Figma page or section where wireframes live",
+      "hifi_location": "Figma page or section where hi-fi lives — populated in Step 3.5",
       "frames": [
         {
           "id": "screen ID e.g. CORE-01/01",
           "label": "screen label",
           "frame_name": "exact Figma frame name",
-          "node_id": "Figma node ID — populated after frame creation",
-          "status": "todo | wip | review | done",
-          "fidelity": "wireframe | hi-fi"
+          "wireframe_node_id": "node ID of the wireframe frame",
+          "hifi_node_id": "node ID of the hi-fi frame — populated during hi-fi phase",
+          "status": "todo | wip | review | done"
         }
       ]
-    }
-  },
-
-  "snapshots": {
-    "_note": "Populated by agent before hi-fi starts. One entry per flow.",
-    "_format": {
-      "flow_id": "e.g. CORE-01",
-      "archived_page_name": "e.g. 'Flows — Wireframes (Archived)'",
-      "archived_at": "ISO date"
     }
   },
 
