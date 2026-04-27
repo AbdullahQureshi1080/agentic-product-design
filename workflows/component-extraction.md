@@ -70,9 +70,10 @@ Move the component set into the designated component section in the Figma file. 
 
 ## Step 9 — Record and advance
 
-- Add entry to `figma-map.json → components` (node ID, variant spec, notes)
-- Remove name from `components_todo` list
-- Log any non-obvious decisions to `context.md Section 4`
+- Add entry to `figma-map.json → components`: node ID, variant spec, notes, and `used_in` array (populated with node IDs of all screens identified during Step 4 variant survey).
+- Remove name from `components_todo` list.
+- Regenerate the component library section of `context.md` from `figma-map.json → components`. List name, variant count, and `used_in` count per component. Overwrite entirely — `figma-map.json` is the source of truth, not `context.md`.
+- Log any non-obvious decisions to `context.md Section 4`.
 - Report to designer: "Component [NAME] is live — [N] variants. Screenshot attached. Ready for #[NEXT]."
 
 ---

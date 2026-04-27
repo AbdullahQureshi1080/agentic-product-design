@@ -10,7 +10,7 @@ Built for designers at AI-native companies who use an AI coding agent and Figma 
 
 You define the product. Your agent builds it in Figma.
 
-The agent reads your context, maps your flows, generates wireframes on canvas, applies your design system, audits every frame against 20 constraints, and iterates — all via Figma MCP. You review in Figma in real-time. Devs get token-annotated frames ready for Dev Mode.
+The agent reads your context, maps your flows, generates wireframes on canvas, applies your design system, audits every frame against 21 constraints, and iterates — all via Figma MCP. You review in Figma in real-time. Devs get token-annotated frames ready for Dev Mode.
 
 Works with **Claude Code**, **Codex CLI**, and any agent that supports MCP servers and reads a project-root instruction file.
 
@@ -22,7 +22,7 @@ Works with **Claude Code**, **Codex CLI**, and any agent that supports MCP serve
 CLAUDE.md              — router for Claude Code (auto-loaded, never edit)
 AGENTS.md              — router for Codex CLI (auto-loaded, never edit)
 context.md             — the only file you fill in
-constraints.md         — 20 design rules + UX patterns (works standalone too)
+constraints.md         — 21 design rules + UX patterns (works standalone too)
 prompts.md             — wireframe, hi-fi, refinement, audit prompts
 figma-map.json         — auto-managed frame map (never edit)
 
@@ -33,6 +33,12 @@ workflows/
   hifi.md                    — hi-fi apply + mandatory wireframe snapshot
   component-extraction.md    — measure → build → validate component workflow
   conventions.md             — naming conventions + speed principles
+
+.claude/skills/              — standalone slash commands, available on clone
+  /figma-audit               — audit any Figma frame, no project setup needed
+  /extract-component         — extract a component from existing hi-fi
+  /scan-coverage             — find unregistered screens on a Figma page
+  /import-figma              — bootstrap a full project from a Figma file URL
 ```
 
 ---

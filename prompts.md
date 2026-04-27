@@ -196,6 +196,7 @@ For each frame, assess:
 - Are components used consistently across all frames in this flow?
 - Do patterns match `constraints.md` definitions?
 - Does this flow feel like the same product as other flows in `figma-map.json`?
+- Do components match their semantic role? (C-21 — Status Badge = read-only label, Chip = selectable option in a group, Button = standalone action trigger, Selection Card = single-item selection context, not a filter chip)
 
 *Copy*
 - Are all labels specific and verb-led (C-13)?

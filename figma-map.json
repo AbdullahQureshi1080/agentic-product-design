@@ -48,6 +48,27 @@
     }
   },
 
+  "components": {
+    "_note": "Agent populates during component extraction and hi-fi phases.",
+    "_format": {
+      "name": "component name e.g. Button",
+      "node_id": "Figma node ID of the component set",
+      "variants": "e.g. Style=Primary|Secondary, Size=SM|MD|LG",
+      "used_in": ["screen node_id where this component appears — e.g. CORE-01/02 hifi_node_id"],
+      "notes": "any non-obvious decisions"
+    }
+  },
+
+  "archived": {
+    "_note": "Superseded frames. Renamed 'Archive — [name]' in Figma. Never deleted from canvas.",
+    "_format": {
+      "frame_name": "original frame name before archiving",
+      "node_id": "Figma node ID",
+      "reason": "why it was archived",
+      "archived_at": "ISO date"
+    }
+  },
+
   "status_key": {
     "todo": "Not started — no Figma frame exists",
     "wip": "Frame exists, design in progress",

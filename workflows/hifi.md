@@ -51,8 +51,9 @@ Say: "Moving to hi-fi. Applying your design system now."
    - Component library instances (never detach)
 5. After each frame: screenshot, verify zero raw values anywhere.
 6. Record the hi-fi frame's node ID in `figma-map.json → flows → frames → hifi_node_id`.
-7. When all frames built: run full 5-pass audit from `prompts.md → Section 4`.
-8. Report: `APPROVE` / `APPROVE WITH MINOR FIXES` / `REVISE AND REAUDIT`.
+7. For each component instance placed: add the screen's `hifi_node_id` to that component's `used_in` array in `figma-map.json → components`. Do this at the end of the frame, not after every layer.
+8. When all frames built: run full 5-pass audit from `prompts.md → Section 4`.
+9. Report: `APPROVE` / `APPROVE WITH MINOR FIXES` / `REVISE AND REAUDIT`.
 
 ---
 
@@ -60,5 +61,6 @@ Say: "Moving to hi-fi. Applying your design system now."
 
 On `APPROVE`:
 - Update `figma-map.json` — set flow status `done`, confirm all `hifi_node_id` fields are populated.
+- Regenerate the component library section of `context.md` from `figma-map.json → components`. For each component list: name, variant count, and count of `used_in` entries. Overwrite the previous list entirely — `figma-map.json` is the source of truth, not `context.md`.
 - Write one-line decision log entry to `context.md Section 4` for any significant choice.
 - Tell designer: "Done. [N] hi-fi frames live in [location] — all layers use token names. Wireframes preserved in [wireframe location]. Ready for dev."
