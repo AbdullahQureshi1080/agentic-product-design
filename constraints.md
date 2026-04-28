@@ -16,7 +16,7 @@ Part of the Agentic Design System. The agent checks all constraints automaticall
 Use independently to audit any Figma file without the full system:
 1. Read this file in full
 2. Screenshot the frame to audit
-3. Check each constraint C-01 through C-20
+3. Check each constraint C-01 through C-23
 4. Report using the Audit Output Format at the bottom of this file
 
 ---
@@ -33,7 +33,7 @@ Use independently to audit any Figma file without the full system:
 | ID | Rule | Severity | Correct | Incorrect |
 |----|------|----------|---------|-----------|
 | C-01 | No hardcoded values | CRITICAL | `color/brand/primary` | `#4A90E2` |
-| C-02 | Autolayout on all frames | CRITICAL | Vertical autolayout, gap `spacing/sm` | Elements manually positioned by X/Y |
+| C-02 | Vertical autolayout on all screens and frames | CRITICAL | `layoutMode = VERTICAL`, gap `spacing/sm`. Screen zones: nav-bar (FIXED) → content (FILL) → action-bar (FIXED, conditional) | `layoutMode = NONE` (absolute positioning) on any screen or frame |
 | C-03 | Platform-appropriate frame size | CRITICAL | Mobile: 390px. Web desktop: 1440px. Tablet: 768px. Defined in `context.md`. | Designing at wrong platform size, or skipping platform definition entirely |
 | C-04 | One primary button per screen | CRITICAL | Single `Primary` button per screen section | Two `Primary` buttons side by side |
 | C-05 | Contrast ≥4.5:1 (text), ≥3:1 (UI) | CRITICAL | `color/neutral/900` on white = 16:1 | `color/neutral/500` on white = 3.2:1 for body text |
@@ -53,6 +53,8 @@ Use independently to audit any Figma file without the full system:
 | C-19 | No lorem ipsum | MEDIUM | "Olivia Chen", "Due tomorrow", "3 tasks" | "Lorem ipsum dolor sit amet" |
 | C-20 | System iconography only | MEDIUM | Phosphor icon `check-circle` at 24px | Custom SVG not in icon library |
 | C-21 | Correct component for semantic role | HIGH | Status Badge for read-only state labels. Chip for selectable options within a group. Button for standalone action triggers. Selection Card for single-item selection contexts. | Using a Chip as a status label because it looks like a pill. Using a Button inside a filter group. Using a Selection Card as a Chip in a multi-select filter group. Swapping any of these based on visual similarity alone. |
+| C-22 | Semantic frame names | HIGH | `AUTH-01 / 01-splash — Splash` | `Frame`, `Frame 2`, `Artboard`, `Group 3`, or any auto-generated default name |
+| C-23 | Component completeness | HIGH | Every visible element is a library component instance. Any exception is documented with a reason. | Inline rectangle where a Card component exists. Manually styled text label where a Status Badge exists. Element built from scratch without checking the library first. |
 
 ---
 

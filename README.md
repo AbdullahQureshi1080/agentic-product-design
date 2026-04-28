@@ -22,7 +22,7 @@ Works with **Claude Code**, **Codex CLI**, and any agent that supports MCP serve
 CLAUDE.md              — router for Claude Code (auto-loaded, never edit)
 AGENTS.md              — router for Codex CLI (auto-loaded, never edit)
 context.md             — the only file you fill in
-constraints.md         — 21 design rules + UX patterns (works standalone too)
+constraints.md         — 23 design rules + UX patterns (works standalone too)
 prompts.md             — wireframe, hi-fi, refinement, audit prompts
 figma-map.json         — auto-managed frame map (never edit)
 

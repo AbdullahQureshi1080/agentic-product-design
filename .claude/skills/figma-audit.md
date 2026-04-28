@@ -41,7 +41,7 @@ Type `/figma-audit` then paste a Figma frame URL or node ID. Example:
 | ID | Rule | Severity |
 |----|------|----------|
 | C-01 | No hardcoded color values — all fills must use Variable bindings, not raw hex | CRITICAL |
-| C-02 | Autolayout on all frames — no elements manually positioned by X/Y | CRITICAL |
+| C-02 | Vertical autolayout on all screens and frames — `layoutMode = VERTICAL`. Screen zones: nav-bar (FIXED) → content (FILL) → action-bar (FIXED, conditional). `layoutMode = NONE` is a violation. | CRITICAL |
 | C-03 | Platform-appropriate frame size — Mobile: 390px. Web desktop: 1440px. Tablet: 768px | CRITICAL |
 | C-04 | One primary button per screen section | CRITICAL |
 | C-05 | Contrast ≥4.5:1 for text, ≥3:1 for UI elements | CRITICAL |
@@ -61,6 +61,8 @@ Type `/figma-audit` then paste a Figma frame URL or node ID. Example:
 | C-19 | No lorem ipsum — all text is realistic content | MEDIUM |
 | C-20 | System iconography only — no custom SVGs not in the icon library | MEDIUM |
 | C-21 | Correct component for semantic role — Status Badge = read-only label, Chip = selectable option in group, Button = standalone action trigger, Selection Card = single-item selection context | HIGH |
+| C-22 | Semantic frame names — no auto-generated defaults: `Frame`, `Frame 2`, `Artboard`, `Group 3` | HIGH |
+| C-23 | Component completeness — every visible element is a library instance or has a documented exception. Flag any inline element that matches an existing component pattern. | HIGH |
 
 ---
 

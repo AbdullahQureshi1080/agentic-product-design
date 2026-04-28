@@ -165,7 +165,7 @@ Run all 5 passes on the screenshots. Reference `constraints.md` for all rules an
 
 **Pass 1 — Constraint Compliance**
 
-Check C-01 through C-20 against every frame. For each violation:
+Check C-01 through C-23 against every frame. For each violation:
 ```
 Frame: [FRAME_NAME]
 Constraint: C-XX — [rule name]
@@ -222,6 +222,8 @@ Verify against `context.md Section 3`:
 - All spacing and radius values use token names
 - All interactive elements are library component instances
 - Icons are from the system library at the correct size
+- All frame names are semantic — no `Frame`, `Frame 2`, `Artboard`, or auto-generated defaults (C-22)
+- Every visible element is a library instance or has a documented exception — flag any inline element that matches an existing component pattern (C-23)
 
 ---
 

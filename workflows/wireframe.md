@@ -27,16 +27,37 @@ Navigate to the confirmed working page in Figma (create it if it doesn't exist f
 
 3. **Dependent screens:** Build one at a time — build → screenshot → audit → fix → next screen.
 
-4. **After all frames in the flow are built:** Run the full constraint pass (C-01 through C-20 in `constraints.md`).
+4. **After all frames in the flow are built:** Run the full constraint pass (C-01 through C-23 in `constraints.md`).
+
+### Screen architecture standard
+
+Every screen on every platform uses the same 3-zone VERTICAL auto-layout structure:
+
+```
+screen  →  layoutMode: VERTICAL, platform-appropriate dimensions
+  nav-bar     FIXED height   — navigation component
+  content     FILL height    — all page content (scrollable)
+  action-bar  FIXED height   — conditional, only when CTA must always be visible
+```
+
+Platform dimensions and zone heights:
+
+| Platform | Frame width | nav-bar | action-bar |
+|----------|-------------|---------|------------|
+| Mobile | 390px | 56px (Screen Header) | 80px (CTA bar) or omit |
+| Tablet | 768px | 60px (Tablet Nav) | 80px or omit |
+| Web desktop | 1440px | 64px (Top Navigation) | Omit — CTAs inline in content |
+
+**action-bar is conditional.** Use it only when the primary action must remain permanently visible (e.g. checkout, save). Omit it when actions are inline within content.
 
 ### Per-frame build rules
 
 Use `use_figma` for each frame:
-- Create frame with correct dimensions: mobile 390×844px, web desktop 1440px wide, tablet 768px wide
-- Enable vertical autolayout
-- Add layers top to bottom: navigation, content, bottom actions
+- Create frame with correct dimensions per platform (see above)
+- Set `layoutMode = VERTICAL` — never use absolute positioning (`layoutMode = NONE`)
+- Build the 3 zones in order: nav-bar → content → action-bar (if needed)
+- Name every layer semantically — never leave auto-generated names (`Frame`, `Frame 2`, `Artboard`)
 - Grayscale fills only — no tokens, no color at wireframe stage
-- Name every layer semantically
 
 After each frame (or batch for independent screens): call `get_screenshot`. Audit against `constraints.md`. Fix any CRITICAL violation on canvas immediately before advancing.
 
