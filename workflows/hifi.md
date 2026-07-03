@@ -27,6 +27,8 @@ C) Same page, hi-fi adjacent — hi-fi frames placed directly to the right of
 
 Record the choice in `context.md` as `hifi_organization` and in `figma-map.json`.
 
+> **Cross-page prototype constraint:** If any two flows need a live, working prototype link between screens, those flows must be on the same Figma page — the Plugin API rejects cross-page `NAVIGATE`/`OVERLAY` reactions. Surface this constraint now, before creating any pages or frames. If the flows must stay on separate pages, the prototype link will be documentation-only (noted in `context.md`, not a real Figma connection). See `conventions.md → Cross-Page Prototype Constraint`.
+
 Create the hi-fi destination (section or page) via MCP before building any frames.
 Confirm to designer: "Hi-fi will be built in [location]. Wireframes stay untouched as reference."
 

@@ -18,6 +18,18 @@ Do not offer to design anything until Section 1 and Section 2 are marked `[x] co
 
 ---
 
+## External Flow-Authority Check
+
+After Section 2 is complete, ask:
+
+> "Do you have an external document that defines your product's flows — a FigJam board, a PRD, a Notion flow map, or any other spec? If yes, share it now."
+
+If one exists: read it and reconcile against the flows in `context.md Section 2`. Look for missing flows, undocumented decisions, and scope conflicts. Resolve discrepancies before any design work begins. Do not treat this as optional or defer it.
+
+Note: `get_figjam` can time out on large boards. If it does, fall back to tiled `get_screenshot` calls (one per quadrant of the board).
+
+---
+
 ## Guided Context Fill-In
 
 When a section is empty, do not present a blank template. Ask questions and write the answers into `context.md` yourself.

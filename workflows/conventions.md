@@ -17,6 +17,35 @@ Common domain prefixes: `AUTH`, `ONBOARD`, `CORE`, `SETTINGS`, `EMPTY`, `ERROR`.
 
 ---
 
+## Page Status Emoji Convention
+
+Flow pages (one per user flow) use status emoji to reflect completeness:
+
+| Emoji | Meaning |
+|-------|---------|
+| ✅ | Done — all frames in the flow are approved |
+| ⌛ | In progress — at least one frame is still wip or review |
+| ⬜ | Not started — no frames have been built yet |
+
+Rules:
+- Status emoji apply **only to flow pages**. Never apply them to structural pages: Cover, Components, Playground, Archive.
+- Do not combine status emoji with decorative topic emoji on the same page name.
+- Status must reflect an honest completeness assessment of the flow, not simply "every currently-listed frame says done" — if frames are known to be missing, the flow is not done.
+
+---
+
+## Cross-Page Prototype Constraint
+
+The Plugin API rejects cross-page `NAVIGATE` and `OVERLAY` prototype reactions. If two flows need a live, working prototype link between screens that live on different Figma pages, that link **cannot be built**.
+
+Decide before building:
+- **Co-locate** the linked flows on one page if a working prototype link is needed.
+- **Accept documentation-only** — note the intended link in `context.md`, do not attempt a real Figma prototype connection.
+
+Do not discover this after frames already exist on separate pages. Surface it at the moment page structure is decided.
+
+---
+
 ## 10x Speed Principles
 
 - For frame build order: see the dependency model in `wireframe.md` — independent screens batch in parallel, dependent screens sequence.

@@ -1,11 +1,13 @@
 ---
 name: figma-audit
-description: Run a 21-constraint design audit on any Figma frame. Works standalone — no project context required.
+description: Run a 23-constraint design audit on any Figma frame. Works standalone — no project context required.
 ---
 
 # /figma-audit
 
-Audit any Figma frame against 21 design constraints. Provide a Figma frame URL or node ID to begin.
+Audit any Figma frame against 23 design constraints. Provide a Figma frame URL or node ID to begin.
+
+> **Maintenance note:** The constraint list in this file must stay in sync with `constraints.md`. Whenever either file is edited, update the other. C-01 through C-23 are defined in `constraints.md` as the source of truth.
 
 **Requires:** Figma MCP connected and authenticated.
 **Does not require:** context.md, figma-map.json, or any project setup.
@@ -26,7 +28,7 @@ Type `/figma-audit` then paste a Figma frame URL or node ID. Example:
 1. Parse the file key and node ID from the URL.
 2. Call `get_screenshot` on the frame.
 3. Call `get_design_context` to inspect layer structure, fills, spacing, and components.
-4. Check every constraint below (C-01 through C-21).
+4. Check every constraint below (C-01 through C-23).
 5. Output the report using the Audit Output Format at the bottom.
 
 ---
@@ -41,7 +43,7 @@ Type `/figma-audit` then paste a Figma frame URL or node ID. Example:
 | ID | Rule | Severity |
 |----|------|----------|
 | C-01 | No hardcoded color values — all fills must use Variable bindings, not raw hex | CRITICAL |
-| C-02 | Vertical autolayout on all screens and frames — `layoutMode = VERTICAL`. Screen zones: nav-bar (FIXED) → content (FILL) → action-bar (FIXED, conditional). `layoutMode = NONE` is a violation. | CRITICAL |
+| C-02 | Vertical autolayout on all screens and frames — `layoutMode = VERTICAL`. Screen zones: nav-bar (FIXED) → content (FILL) → action-bar (FIXED, conditional). Exception: absolutely-positioned floating overlay elements (notches, floating badges, docked rails) intentionally outside document flow are not a violation, provided the parent frame's primary content still uses vertical autolayout. | CRITICAL |
 | C-03 | Platform-appropriate frame size — Mobile: 390px. Web desktop: 1440px. Tablet: 768px | CRITICAL |
 | C-04 | One primary button per screen section | CRITICAL |
 | C-05 | Contrast ≥4.5:1 for text, ≥3:1 for UI elements | CRITICAL |

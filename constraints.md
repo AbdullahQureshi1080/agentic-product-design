@@ -33,7 +33,7 @@ Use independently to audit any Figma file without the full system:
 | ID | Rule | Severity | Correct | Incorrect |
 |----|------|----------|---------|-----------|
 | C-01 | No hardcoded values | CRITICAL | `color/brand/primary` | `#4A90E2` |
-| C-02 | Vertical autolayout on all screens and frames | CRITICAL | `layoutMode = VERTICAL`, gap `spacing/sm`. Screen zones: nav-bar (FIXED) → content (FILL) → action-bar (FIXED, conditional) | `layoutMode = NONE` (absolute positioning) on any screen or frame |
+| C-02 | Vertical autolayout on all screens and frames | CRITICAL | `layoutMode = VERTICAL`, gap `spacing/sm`. Screen zones: nav-bar (FIXED) → content (FILL) → action-bar (FIXED, conditional). **Exception:** absolutely-positioned floating overlay elements (e.g., presence notches, floating badges, docked rails) that are intentionally outside document flow are not a C-02 violation, provided their parent frame's primary content still uses vertical autolayout. | `layoutMode = NONE` on any screen or frame whose primary content is not a floating overlay |
 | C-03 | Platform-appropriate frame size | CRITICAL | Mobile: 390px. Web desktop: 1440px. Tablet: 768px. Defined in `context.md`. | Designing at wrong platform size, or skipping platform definition entirely |
 | C-04 | One primary button per screen | CRITICAL | Single `Primary` button per screen section | Two `Primary` buttons side by side |
 | C-05 | Contrast ≥4.5:1 (text), ≥3:1 (UI) | CRITICAL | `color/neutral/900` on white = 16:1 | `color/neutral/500` on white = 3.2:1 for body text |
