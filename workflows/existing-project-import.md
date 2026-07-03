@@ -85,6 +85,18 @@ Write answers into `context.md Section 1`. Mark complete.
 
 ---
 
+## Step 6.5 — External Flow-Authority Check
+
+Ask:
+
+> "Do you have an external document that defines your product's flows — a FigJam board, a PRD, a Notion flow map, or any other spec? If yes, share it now."
+
+If one exists: read it and reconcile against `figma-map.json`. Look for flows that exist in the document but are missing from `figma-map.json`, undocumented decisions, and scope conflicts. Resolve discrepancies before any design work begins. Do not treat this as optional or defer it.
+
+Note: `get_figjam` can time out on large boards. If it does, fall back to tiled `get_screenshot` calls (one per quadrant of the board).
+
+---
+
 ## Step 7 — Present import summary
 
 ```

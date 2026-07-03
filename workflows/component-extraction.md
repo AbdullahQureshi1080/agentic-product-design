@@ -78,9 +78,40 @@ Move the component set into the designated component section in the Figma file. 
 
 ---
 
+---
+
+## Component Library Health Audit
+
+Run this periodically — after every N flows are completed, or on request. Never rely solely on the `used_in` field in `figma-map.json` for this: it is written once at promotion time and is not maintained as screens evolve.
+
+### Trigger
+
+- After every 3–4 flows are marked done, or when explicitly requested.
+
+### Method
+
+1. Run a live `findAllWithCriteria({ types: ['INSTANCE'] })` scan across all pages.
+2. Group instances by `mainComponent` (or parent `COMPONENT_SET` for variant groups).
+3. For each group, count which flows the instance appears in by checking parent frame names.
+
+### Tiering
+
+| Usage | Action |
+|-------|--------|
+| 3+ flows | Promotion-ready — add to the promotion list if not already a library component |
+| 2 flows | Watchlist — log it, re-check at the next audit |
+| Visually similar but semantically distinct | Log as "not a candidate" with the explicit reason, so future audits don't re-flag it |
+
+### Output
+
+Report the audit findings before taking any promotion action. Do not promote a component without the designer's confirmation.
+
+---
+
 ## Rules
 
 - One component at a time. Never start the next until the current is approved.
 - The screen is always the source of truth — not memory, not assumption.
 - Measure before building, always.
 - Validation screenshot is mandatory before reporting done.
+- The `used_in` field in `figma-map.json` is written once and is not maintained — never treat it as an authoritative usage count. Always live-scan for usage audits.
