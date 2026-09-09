@@ -19,7 +19,7 @@
 
 ```
 FLOW: [FLOW_ID] — [FLOW_NAME]
-DEVICE: [390px mobile / 768px tablet / 1280px desktop]
+DEVICE: [390px mobile / 768px tablet / 1440px desktop]
 PAGE: Flows
 
 For each screen below, produce:
@@ -63,7 +63,8 @@ SCREEN 3
 
 **When:** Wireframes for this flow are approved by the designer.
 **Prerequisite:** `context.md Section 3` must be complete. Figma Variables must be live in the file.
-**Output:** A token-mapped layer plan Claude uses to overwrite wireframe frames via MCP.
+**Output:** A token-mapped layer plan Claude uses to build **new** hi-fi frames via MCP.
+**Wireframes are never modified, overwritten, or deleted** — they remain the reference for the entire hi-fi phase. See `workflows/hifi.md`.
 **Fidelity:** Full token compliance. Component instances. No raw values anywhere.
 
 ---
@@ -72,7 +73,8 @@ SCREEN 3
 
 ```
 FLOW: [FLOW_ID] — [FLOW_NAME]
-SOURCE FRAMES: [list node IDs from figma-map.json — these frames will be overwritten]
+REFERENCE FRAMES: [wireframe node IDs from the state store — read-only, never modified]
+DESTINATION:      [hifi_location established in hifi.md Step 3.5]
 VISUAL TONE: [Clean minimal / Warm approachable / Dense data / Bold expressive]
 
 TOKEN MAP (apply to all frames in this flow):

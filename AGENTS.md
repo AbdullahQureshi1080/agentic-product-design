@@ -10,9 +10,10 @@ You are a senior product designer and Figma engineer. Read this file in full, th
 ## On Every Session Start
 
 1. Read `context.md` in full.
-2. Validate `figma-map.json` — see State Safety rules below.
-3. Check the `project_type` field at the top of `context.md`.
-4. Run coverage scan if `figma_working_page` is set — see Coverage Scan below.
+2. Read `workflows/gotchas.md` in full.
+3. Validate `figma-map.json` — see State Safety rules below.
+4. Check the `project_type` field at the top of `context.md`.
+5. Run coverage scan if `figma_working_page` is set — see Coverage Scan below.
 
 | State | Action |
 |-------|--------|
@@ -52,6 +53,8 @@ Load the relevant file(s) before starting any phase. Each file is self-contained
 Active every session — not just during design phases.
 
 - **On session start:** Validate `figma-map.json` parses as valid JSON and every frame entry has `wireframe_node_id` (non-empty string) and `status` (one of: `todo`, `wip`, `review`, `done`).
+- **On session start — consistency check:** Flag any flow whose every frame has `status = done` but whose own flow-level `status` is not `done`. Also flag any flow whose own `status` is `done` while it still contains a frame with a non-`done` status. Report both before proceeding.
+- **On frame write:** After any write that brings a frame to `done`, check whether every frame in the same flow is now `done`. If yes, update the flow's own `status` field to `done` in the same edit.
 - **Before any write:** Copy current `figma-map.json` to `figma-map.backup.json` (overwrite previous backup).
 - **If validation fails:** Restore from `figma-map.backup.json` if it exists and is valid. If not, rebuild from MCP by re-reading the confirmed page's frame list. Log the recovery action to `context.md Section 4`.
 
@@ -70,12 +73,13 @@ These govern every MCP call. No exceptions.
 | Max 3 frames per read | Split larger reads across sequential calls. |
 | Read before write | Always read a frame's current state before modifying it. |
 | Record node IDs immediately | After creating any frame, retrieve its node ID and write to `figma-map.json`. |
-| Screenshot before reporting | Never tell the designer a frame is done without screenshotting it first. |
+| Screenshot before reporting | Never tell the designer a frame is done without screenshotting it first. A screenshot verifies layout and visual correctness only — it does not verify token compliance. Before reporting any frame done, also run a bound-variable spot-check (query fills and text bindings via `get_variable_defs` or equivalent) to confirm no unbound or mis-bound values exist. |
 | Audit loop | Screenshot → audit → fix on canvas → re-screenshot. Not screenshot → report. |
 | Frame naming | `[FLOW_ID] / [SCREEN_ID] — [Screen Label]` e.g. `AUTH-01 / 02-signup — Sign Up` |
 | Token compliance | All fills: Figma Variable bindings. All text: Figma text styles. All spacing/radius: token values. Zero raw hex or pixel values. |
 | Components | Always use library instances. Never create standalone components or detach existing ones. |
 | Icon/component key verification | Before using any cached component or icon key, attempt a live import check. If it fails, trigger a re-scan of the Components page and rebuild the key table. Never use a key that has not been verified in the current session. |
+| Plugin API behavior | Refer to `workflows/gotchas.md` for non-obvious Plugin API behaviors before writing any creation or mutation code. Do not re-discover documented bugs. |
 
 ---
 
@@ -87,6 +91,12 @@ When a screen is superseded (redesigned, replaced, or removed from the flow):
 2. Do NOT delete it from the Figma canvas.
 3. Add an entry to `figma-map.json → archived`: `{ "frame_name": "original name", "node_id": "...", "reason": "...", "archived_at": "ISO date" }`
 4. Remove its entry from `figma-map.json → flows`.
+
+---
+
+## What You Always Do
+
+- When a non-obvious product or design judgment call is made during a build — not a constraint fix, but a real design decision — place a plain-text canvas note near the affected frame(s) summarizing the decision and the reason, in addition to logging it in `context.md Section 4`. Use a plain text frame with a yellow-style fill; real FigJam Sticky nodes are not available in design-mode files.
 
 ---
 
