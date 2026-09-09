@@ -1,6 +1,6 @@
 ---
 name: scan-coverage
-description: Scan a Figma page for unregistered screens — frames that match the flow naming convention but aren't tracked in figma-map.json. Works standalone — only needs a Figma page URL.
+description: Scan a Figma page for unregistered screens — frames that match the flow naming convention but aren't tracked in the figma-map/ state store. Works standalone — only needs a Figma page URL.
 ---
 
 # /scan-coverage
@@ -8,7 +8,7 @@ description: Scan a Figma page for unregistered screens — frames that match th
 Scan a Figma page and report any frames that look like flow screens but aren't registered in your project.
 
 **Requires:** Figma MCP connected.
-**Does not require:** context.md or figma-map.json (but uses figma-map.json if present).
+**Does not require:** context.md or the `figma-map/` state store (but uses the store if present).
 
 ---
 
@@ -38,13 +38,34 @@ Classify every frame:
 - **Matches convention** → tracked screen candidate
 - **Does not match** → skip (may be a section, component, or annotation frame)
 
-### Step 4 — Compare against figma-map.json
-If `figma-map.json` exists in the project:
-- **Unregistered** — frame matches convention but has no entry in figma-map.json
-- **Missing** — entry in figma-map.json has no matching frame on this page
-- **Registered** — frame exists in both Figma and figma-map.json
+### Step 4 — Compare against the state store
 
-If figma-map.json does not exist: report all convention-matching frames as unregistered.
+Read `figma-map/index.md` first. It carries the flow table and per-flow frame counts,
+which is often enough to tell whether a scan is even needed.
+
+Then compare frame-by-frame using grep — do not load `frames.jsonl` into context wholesale
+unless the scan genuinely covers every flow:
+
+```bash
+# is one specific frame registered?
+grep -F '"frame_name":"AUTH-01 / 01-splash — Splash"' figma-map/frames.jsonl
+
+# every registered frame in one flow
+grep '"flow_id":"AUTH-01"' figma-map/frames.jsonl
+
+# all registered frame names, for a full-page scan
+grep -o '"frame_name":"[^"]*"' figma-map/frames.jsonl
+```
+
+A full-page coverage scan is the one routine operation that legitimately reads the whole
+`frames.jsonl`. Prefer the last form above — it extracts only the names, not whole records.
+
+Classify each frame:
+- **Unregistered** — matches the convention but has no line in `figma-map/frames.jsonl`
+- **Missing** — has a line in `figma-map/frames.jsonl` but no matching frame on this page
+- **Registered** — present in both
+
+If `figma-map/` does not exist: report all convention-matching frames as unregistered.
 
 ### Step 5 — Report
 
@@ -56,11 +77,24 @@ Matching naming convention: [N]
 REGISTERED: [N]
   [list frame names]
 
-UNREGISTERED (in Figma, not in figma-map.json): [N]
+UNREGISTERED (in Figma, not in the state store): [N]
   [list frame names]
-  → Should these be added to figma-map.json?
+  → Should these be appended to figma-map/frames.jsonl?
 
-MISSING (in figma-map.json, not in Figma): [N]
+MISSING (in the state store, not in Figma): [N]
   [list frame names]
   → These may have been renamed, archived, or deleted.
+```
+
+### Step 6 — On write
+
+If the designer confirms adding unregistered frames, **append** one line per frame to
+`figma-map/frames.jsonl` — never rewrite the shard. Field definitions are in
+`figma-map/schema.md`. Store node IDs exactly as MCP returned them.
+
+Then regenerate the index and validate:
+
+```bash
+node scripts/build-index.mjs
+node scripts/validate-store.mjs
 ```

@@ -24,7 +24,7 @@ I found these pages: [list]
 Which page has your main screens/flows?
 ```
 
-Accept any page name — never require "Flows". Write the confirmed page name into `context.md` and `figma-map.json`.
+Accept any page name — never require "Flows". Write the confirmed page name into `context.md` as `figma_working_page`.
 
 ---
 
@@ -40,7 +40,7 @@ For each, tell me: done / in progress / not started.
 You can group them: "1–8 done, 9–12 in progress, rest not started."
 ```
 
-Map statuses into `figma-map.json`. Attempt to parse frame names into `[FLOW_ID] / [SCREEN_ID]` convention. If names don't match, record them as-is and flag for renaming later.
+Append one record per frame to `figma-map/frames.jsonl`, and one per flow to `figma-map/flows.jsonl`. Attempt to parse frame names into `[FLOW_ID] / [SCREEN_ID]` convention. If names don't match, record them as-is and flag for renaming later.
 
 ---
 
@@ -91,7 +91,7 @@ Ask:
 
 > "Do you have an external document that defines your product's flows — a FigJam board, a PRD, a Notion flow map, or any other spec? If yes, share it now."
 
-If one exists: read it and reconcile against `figma-map.json`. Look for flows that exist in the document but are missing from `figma-map.json`, undocumented decisions, and scope conflicts. Resolve discrepancies before any design work begins. Do not treat this as optional or defer it.
+If one exists: read it and reconcile against `figma-map/index.md`. Look for flows that exist in the document but are missing from the store, undocumented decisions, and scope conflicts. Resolve discrepancies before any design work begins. Do not treat this as optional or defer it.
 
 Note: `get_figjam` can time out on large boards. If it does, fall back to tiled `get_screenshot` calls (one per quadrant of the board).
 

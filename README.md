@@ -24,7 +24,24 @@ AGENTS.md              — router for Codex CLI (auto-loaded, never edit)
 context.md             — the only file you fill in
 constraints.md         — 23 design rules + UX patterns (works standalone too)
 prompts.md             — wireframe, hi-fi, refinement, audit prompts
-figma-map.json         — auto-managed frame map (never edit)
+figma-map.legacy.json  — pre-migration snapshot, retained for reference
+
+figma-map/             — auto-managed state store (never edit by hand)
+  index.md               — counts + flow table. The agent reads this first, every session
+  schema.md              — field definitions; loaded only when writing a record
+  meta.json              — project scalars
+  flows.jsonl            — one JSON record per line, one line per flow
+  frames.jsonl           — one line per screen, keyed to a flow by flow_id
+  components.jsonl       — one line per library component
+  archived.jsonl         — superseded frames, append-only
+
+scripts/               — zero-dependency Node, no install step
+  validate-store.mjs     — parse, required fields, unique node IDs, FKs, index freshness
+  build-index.mjs        — regenerates index.md from the shards
+  migrate-store.mjs      — legacy figma-map.json -> sharded store
+  roundtrip-proof.mjs    — proves the migration loses nothing
+  test-validator.mjs     — negative tests: confirms the validator catches real defects
+  measure-tokens.mjs     — before/after context cost
 
 workflows/
   new-project-setup.md       — guided context fill-in for new projects
@@ -41,6 +58,43 @@ workflows/
   /scan-coverage             — find unregistered screens on a Figma page
   /import-figma              — bootstrap a full project from a Figma file URL
 ```
+
+---
+
+## The State Store
+
+Project state lives in `figma-map/` as **JSONL** — one JSON record per line, one
+collection per file. The file as a whole isn't valid JSON; every individual line is.
+
+This matters because an agent doesn't traverse a file, it loads it whole. A single
+growing `figma-map.json` had to be read in full to answer any question about it. Sharded,
+the agent reads a small generated index first, then greps the one shard it needs:
+
+```bash
+grep '"flow_id":"AUTH-01"' figma-map/frames.jsonl
+```
+
+That returns complete, individually parseable records. Writes are appends, so adding
+120 frames is 120 appended lines rather than one 120-frame rewrite — and a failed write
+costs the last line instead of corrupting the store.
+
+Measured on a 10-flow / 120-frame / 25-component project:
+
+| Operation | Before | After | Reduction |
+|---|---|---|---|
+| Session start | ~9,600 tok | ~430 tok | **95%** |
+| Work on one flow | ~9,600 tok | ~970 tok | **90%** |
+| Full coverage scan | ~9,600 tok | ~1,820 tok | **81%** |
+
+Verify the store at any time:
+
+```bash
+node scripts/validate-store.mjs
+```
+
+It checks that every line parses, required fields are present, node IDs are unique and
+stored as exact strings, `flow_id` foreign keys resolve, flow statuses agree with their
+frames, `index.md` matches the shards, and `AGENTS.md` hasn't drifted from `CLAUDE.md`.
 
 ---
 

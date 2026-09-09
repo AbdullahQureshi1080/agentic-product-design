@@ -70,9 +70,9 @@ Move the component set into the designated component section in the Figma file. 
 
 ## Step 9 — Record and advance
 
-- Add entry to `figma-map.json → components`: node ID, variant spec, notes, and `used_in` array (populated with node IDs of all screens identified during Step 4 variant survey).
+- Append a record to `figma-map/components.jsonl`: node ID, variant spec, notes, and `used_in` array (populated with node IDs of all screens identified during Step 4 variant survey). Then run `node scripts/build-index.mjs`.
 - Remove name from `components_todo` list.
-- Regenerate the component library section of `context.md` from `figma-map.json → components`. List name, variant count, and `used_in` count per component. Overwrite entirely — `figma-map.json` is the source of truth, not `context.md`.
+- Regenerate the component library section of `context.md` from `figma-map/components.jsonl`. List name, variant count, and `used_in` count per component. Overwrite entirely — the state store is the source of truth, not `context.md`.
 - Log any non-obvious decisions to `context.md Section 4`.
 - Report to designer: "Component [NAME] is live — [N] variants. Screenshot attached. Ready for #[NEXT]."
 
@@ -82,7 +82,7 @@ Move the component set into the designated component section in the Figma file. 
 
 ## Component Library Health Audit
 
-Run this periodically — after every N flows are completed, or on request. Never rely solely on the `used_in` field in `figma-map.json` for this: it is written once at promotion time and is not maintained as screens evolve.
+Run this periodically — after every N flows are completed, or on request. Never rely solely on the `used_in` field in `figma-map/components.jsonl` for this: it is written once at promotion time and is not maintained as screens evolve.
 
 ### Trigger
 
@@ -114,4 +114,4 @@ Report the audit findings before taking any promotion action. Do not promote a c
 - The screen is always the source of truth — not memory, not assumption.
 - Measure before building, always.
 - Validation screenshot is mandatory before reporting done.
-- The `used_in` field in `figma-map.json` is written once and is not maintained — never treat it as an authoritative usage count. Always live-scan for usage audits.
+- The `used_in` field in `figma-map/components.jsonl` is written once and is not maintained — never treat it as an authoritative usage count. Always live-scan for usage audits.

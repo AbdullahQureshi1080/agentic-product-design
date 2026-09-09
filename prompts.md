@@ -130,7 +130,7 @@ SCREEN [SCREEN_ID]:
 ### Refinement Request Template
 
 ```
-FRAME: [exact frame name] | NODE ID: [from figma-map.json]
+FRAME: [exact frame name] | NODE ID: [from figma-map/frames.jsonl]
 FIDELITY: [wireframe / hi-fi]
 ISSUE:
   Problem: [specific description — quote layer names where possible]
@@ -197,7 +197,7 @@ For each frame, assess:
 *Consistency*
 - Are components used consistently across all frames in this flow?
 - Do patterns match `constraints.md` definitions?
-- Does this flow feel like the same product as other flows in `figma-map.json`?
+- Does this flow feel like the same product as other flows in `figma-map/index.md`?
 - Do components match their semantic role? (C-21 — Status Badge = read-only label, Chip = selectable option in a group, Button = standalone action trigger, Selection Card = single-item selection context, not a filter chip)
 
 *Copy*
