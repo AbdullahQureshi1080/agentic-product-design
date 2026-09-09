@@ -1,14 +1,14 @@
 ---
 name: import-figma
-description: Import an existing Figma project — discovers pages, inventories frames, extracts design system tokens, and creates context.md and figma-map.json from scratch. Works standalone.
+description: Import an existing Figma project — discovers pages, inventories frames, extracts design system tokens, and creates context.md and the figma-map/ state store from scratch. Works standalone.
 ---
 
 # /import-figma
 
-Import an existing Figma project into the Agentic Design System. Creates `context.md` and `figma-map.json` from scratch — no prior setup needed.
+Import an existing Figma project into the Agentic Design System. Creates `context.md` and the `figma-map/` state store from scratch — no prior setup needed.
 
-**Requires:** Figma MCP connected.
-**Creates:** `context.md` and `figma-map.json` in the current directory.
+**Requires:** Figma MCP connected. Node (already required by Claude Code) for the index and validation scripts.
+**Creates:** `context.md` and `figma-map/` in the current directory.
 
 ---
 
@@ -64,8 +64,31 @@ Your library has [N] components: [list key ones]
 4. What is explicitly out of scope for this design work?
 
 ### Step 7 — Create project files
-Write `context.md` with all gathered information.
-Write `figma-map.json` with file key, page name, and frame inventory.
+
+Write `context.md` with all gathered information — including `figma_working_page`, which
+lives there rather than in the store.
+
+Create the `figma-map/` state store. Field definitions and record shapes are in
+`figma-map/schema.md`; read it before writing the first record.
+
+- `meta.json` — product name, file key, file URL.
+- `flows.jsonl` — **append** one line per flow.
+- `frames.jsonl` — **append** one line per frame, each carrying its `flow_id`.
+- `components.jsonl` — **append** one line per library component.
+- `archived.jsonl` — leave empty unless archived frames were found.
+
+**Append lines; never rewrite a shard.** An import of 120 frames is 120 appended lines,
+not one 120-frame rewrite. Node IDs are stored as the exact strings MCP returned — never
+parsed, reformatted, or normalised between the `:` and `-` forms.
+
+Then generate the index and validate before reporting:
+
+```bash
+node scripts/build-index.mjs
+node scripts/validate-store.mjs
+```
+
+Do not report the import complete until the validator passes.
 
 Report:
 ```

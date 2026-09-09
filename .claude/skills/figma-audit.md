@@ -10,7 +10,7 @@ Audit any Figma frame against 23 design constraints. Provide a Figma frame URL o
 > **Maintenance note:** The constraint list in this file must stay in sync with `constraints.md`. Whenever either file is edited, update the other. C-01 through C-23 are defined in `constraints.md` as the source of truth.
 
 **Requires:** Figma MCP connected and authenticated.
-**Does not require:** context.md, figma-map.json, or any project setup.
+**Does not require:** context.md, the `figma-map/` state store, or any project setup.
 
 ---
 

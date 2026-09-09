@@ -2,7 +2,7 @@
 
 > Loaded by the router after wireframes are approved. Load alongside `conventions.md`.
 > Wireframes are never modified during hi-fi — they remain the reference throughout.
-> When all frames are approved, update `figma-map.json` and report done.
+> When all frames are approved, update the state store, regenerate the index, and report done.
 
 Only starts after the designer explicitly approves wireframes.
 
@@ -25,7 +25,7 @@ C) Same page, hi-fi adjacent — hi-fi frames placed directly to the right of
    each wireframe frame on the same page, no formal sections.
 ```
 
-Record the choice in `context.md` as `hifi_organization` and in `figma-map.json`.
+Record the choice in `context.md` as `hifi_organization` and in `figma-map/meta.json`.
 
 > **Cross-page prototype constraint:** If any two flows need a live, working prototype link between screens, those flows must be on the same Figma page — the Plugin API rejects cross-page `NAVIGATE`/`OVERLAY` reactions. Surface this constraint now, before creating any pages or frames. If the flows must stay on separate pages, the prototype link will be documentation-only (noted in `context.md`, not a real Figma connection). See `conventions.md → Cross-Page Prototype Constraint`.
 
@@ -52,8 +52,8 @@ Say: "Moving to hi-fi. Applying your design system now."
    - Spacing tokens
    - Component library instances (never detach)
 5. After each frame: screenshot, verify zero raw values anywhere.
-6. Record the hi-fi frame's node ID in `figma-map.json → flows → frames → hifi_node_id`.
-7. For each component instance placed: add the screen's `hifi_node_id` to that component's `used_in` array in `figma-map.json → components`. Do this at the end of the frame, not after every layer.
+6. Record the hi-fi frame's node ID as `hifi_node_id` on that frame's line in `figma-map/frames.jsonl`. Store the exact string MCP returned.
+7. For each component instance placed: add the screen's `hifi_node_id` to that component's `used_in` array in `figma-map/components.jsonl`. Do this at the end of the frame, not after every layer.
 8. When all frames built: run full 5-pass audit from `prompts.md → Section 4`.
 9. Report: `APPROVE` / `APPROVE WITH MINOR FIXES` / `REVISE AND REAUDIT`.
 
@@ -62,7 +62,7 @@ Say: "Moving to hi-fi. Applying your design system now."
 ## Step 5 — Completion
 
 On `APPROVE`:
-- Update `figma-map.json` — set flow status `done`, confirm all `hifi_node_id` fields are populated.
-- Regenerate the component library section of `context.md` from `figma-map.json → components`. For each component list: name, variant count, and count of `used_in` entries. Overwrite the previous list entirely — `figma-map.json` is the source of truth, not `context.md`.
+- Update `figma-map/flows.jsonl` — set flow status `done`, confirm every frame line for the flow has `hifi_node_id` populated. Then run `node scripts/build-index.mjs` and `node scripts/validate-store.mjs`.
+- Regenerate the component library section of `context.md` from `figma-map/components.jsonl`. For each component list: name, variant count, and count of `used_in` entries. Overwrite the previous list entirely — the state store is the source of truth, not `context.md`.
 - Write one-line decision log entry to `context.md Section 4` for any significant choice.
 - Tell designer: "Done. [N] hi-fi frames live in [location] — all layers use token names. Wireframes preserved in [wireframe location]. Ready for dev."

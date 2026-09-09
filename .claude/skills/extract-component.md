@@ -10,7 +10,7 @@ Extract a reusable component from an existing Figma hi-fi screen into your compo
 Provide a Figma node URL pointing to one instance of the element you want to extract.
 
 **Requires:** Figma MCP connected + Figma file with Variables set up.
-**Does not require:** context.md or figma-map.json.
+**Does not require:** context.md or the `figma-map/` state store.
 
 ---
 

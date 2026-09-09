@@ -2,7 +2,8 @@
   "_note": "Auto-managed by the agent. Never edit manually.",
 
   "_schema": {
-    "frame_fields_required": ["wireframe_node_id", "hifi_node_id", "status"],
+    "frame_fields_required": ["wireframe_node_id", "status"],
+    "frame_fields_optional": ["hifi_node_id — populated during the hi-fi phase; absent on wireframe-stage frames"],
     "status_values": ["todo", "wip", "review", "done"],
     "hifi_organization_values": ["same-page-sections", "page-per-flow", "same-page-adjacent"],
     "backup_file": "figma-map.backup.json",
