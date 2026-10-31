@@ -5,6 +5,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 const legacyPath = process.argv[2] ?? "figma-map.legacy.json";
 const outDir     = process.argv[3] ?? "figma-map";
@@ -129,7 +130,8 @@ export function readStore(dir) {
   };
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// pathToFileURL, not a `file://` template: on Windows argv[1] is C:\... and would never match.
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   const legacy = JSON.parse(fs.readFileSync(legacyPath, "utf8"));
   const shards = migrate(legacy);
   writeStore(outDir, shards);
