@@ -4,6 +4,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { readStore } from "./migrate-store.mjs";
 
 const dir = process.argv[2] ?? "figma-map";
@@ -82,7 +83,8 @@ grep -v '"hifi_node_id"' figma-map/frames.jsonl
 `;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// pathToFileURL, not a `file://` template: on Windows argv[1] is C:\... and would never match.
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   const idx = buildIndex(readStore(dir));
   fs.writeFileSync(path.join(dir, "index.md"), idx);
   console.log(`wrote ${dir}/index.md (${idx.length} bytes)`);
